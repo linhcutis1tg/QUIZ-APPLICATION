@@ -1,0 +1,10 @@
+3
+1 Trai dat hinh gi?
+4 Tron Vuong Phang Oval
+a
+2 Script ngon ngu nao duoc chay tren trinh duyet Web?
+5 Python C++ Java JavaScript PHP
+d
+3 Mot nam nhuan co bao nhieu ngay?
+3 364 365 366
+c
