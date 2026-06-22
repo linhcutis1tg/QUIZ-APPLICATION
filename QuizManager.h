@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <sstream>
 #include "Question.h"
 #include "Candidate.h" 
 #include "ExamResult.h" 
