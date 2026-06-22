@@ -1,3 +1,5 @@
+// tao them mot class MultipleChoiceQuestion la lop con cua class Question thua huong tat ca thuoc tinh cua Question va ham displayQuestion
+// de ghi de cau hoi sau moi lan lam
 #pragma once
 #include <iostream>
 #include <string>
