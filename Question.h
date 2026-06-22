@@ -16,4 +16,23 @@ public:
     int getID() const { return id; }
     char getCorrectAnswer() const { return correctAnswer; }
 };
-    
+class MultipleChoiceQuestion : public Question
+{
+public:
+    MultipleChoiceQuestion(int id, const std::string &content,const std::vector<std::string> &options, char correctAnswer)
+        : Question(id, content, options, correctAnswer)
+    {
+    }
+    void displayQuestion() const override
+    {
+        std::cout << "Cau " << id << ": " << content << std::endl;
+
+        char optionName = 'A';
+
+        for (int i = 0; i < options.size(); i++)
+        {
+            std::cout << optionName << ". " << options[i] << std::endl;
+            optionName++;
+        }
+    }
+};
