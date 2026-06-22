@@ -27,6 +27,18 @@ class QuizManager
         void reviewAndmodifyanswer();
 
 };
+QuizManager::QuizManager()
+{
+    totalQuestions = 0;
+}
+QuizManager::~QuizManager()
+{
+    for (Question* q : question)
+    {
+        delete q;
+    }
+    question.clear();
+}
 void QuizManager::loadQuestionFromFile(string filename)
 {
     ifstream file(filename);
@@ -69,6 +81,6 @@ void QuizManager::loadQuestionFromFile(string filename)
             new MultipleChoiceQuestion(id, content, options, ans)
         );
     }
-    totalQuestions = question.size();
-    candidateAnswer.resize(totalQuestions);
+    totalQuestions =(int)question.size();
+    candidateAnswer.resize(totalQuestions,' ');
 }
