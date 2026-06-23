@@ -3,10 +3,12 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <cctype>
 #include "Question.h"
 #include "Candidate.h" 
 #include "ExamResult.h" 
 #include "InputValidator.h"
+#include "TimeService.h"
 
 #include <iostream>
 using namespace std;
@@ -24,7 +26,7 @@ class QuizManager
         ~QuizManager();
         void loadQuestionFromFile(string filename);
         void startExam();
-        void reviewAndmodifyanswer();
+        void reviewAndModifyAnswer();
 
 };
 QuizManager::QuizManager()
@@ -84,3 +86,49 @@ void QuizManager::loadQuestionFromFile(string filename)
     totalQuestions =(int)question.size();
     candidateAnswer.resize(totalQuestions,' ');
 }
+void QuizManager::startExam() {
+    currentcandidate.inputInfo();
+    cout << "Nhấn Enter để bắt đầu";
+    cin.get();
+    string startTime = TimeService::getCurrentTime(); // xu ly moc thgian bat dau
+    time_t startSecond = time(0); // luu moc bat dau
+    for(int i = 0; i < totalQuestions; i++) { // duyet tu cau 1 den het cac cau hoi
+        question[i]->displayQuestion(); // hien thi cau hoi va lua chon (late binding)
+        cout <<"Chọn A/B/C/D (S để bỏ qua): ";
+        candidateAnswer[i] = InputValidator::getValidatedAnswer(); //lay dap an cua thi sinh
+    }
+    time_t endSecond = time(0); // luu moc ket thuc
+    int duration = TimeService::calculateElapsedSeconds(startSecond, endSecond);
+    finalResult.caculateResult(question, currentcandidate, startTime, duration);
+    cout << "Bạn đã hoàn thành bài thi lượt thi lần đầu tiên trong" << duration << endl;
+}
+void QuizManager::reviewAndModifyAnswer()
+{
+    while (true)
+    {    
+        char choice;
+        cout << "Do you want to change any answers? (Y/N): ";
+        cin >> choice;
+        choice = toupper(choice); //chuyen ki tu tu thuong sang in
+
+        if (choice != 'Y')
+         break;
+
+        int choiceIndex;
+        cout << "Nhập câu muốn sửa " << choiceIndex;
+        if(!InputValidator::validateQuestionIndex( choiceIndex, totalQuestions))
+        {
+            cout << "Sai số câu. Vui lòng nhập lại!";
+            continue;
+        }
+        int index = choiceIndex - 1;
+        cout << "Xem lại câu số" << choiceIndex;
+        question[index] -> displayQuestion();
+
+        cout << "Đáp án hiện tại là: " <<candidateAnswer[index] << endl; 
+        cout << "Nhập lại đáp án A/B/C/D (hoặc S để bỏ qua): ";
+        candidateAnswer[index] = InputValidator::getValidatedAnswer();
+        cout << "cập nhật đáp án câu " << choiceIndex << " thành công!";
+    }
+    finalResult.displayFinalReport(); //goi ham de show ket qua   
+    }
