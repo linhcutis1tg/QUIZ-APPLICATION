@@ -24,7 +24,7 @@ class QuizManager
     public:
         QuizManager();
         ~QuizManager();
-        void loadQuestionFromFile(string filename);
+        bool loadQuestionFromFile(string filename);
         void startExam();
         void reviewAndModifyAnswer();
 
@@ -41,13 +41,13 @@ QuizManager::~QuizManager()
     }
     question.clear();
 }
-void QuizManager::loadQuestionFromFile(string filename)
+bool QuizManager::loadQuestionFromFile(string filename)
 {
     ifstream file(filename);
     if (!file.is_open())
     {
         cout << "Cannot open file!" << endl;
-        return;
+        return false;
     }
     int n;
     file >> n;
@@ -85,6 +85,7 @@ void QuizManager::loadQuestionFromFile(string filename)
     }
     totalQuestions =(int)question.size();
     candidateAnswer.resize(totalQuestions,' ');
+    return true;
 }
 void QuizManager::startExam() {
     currentcandidate.inputInfo();
