@@ -12,16 +12,50 @@ private:
 
 public:
     // Constructor
-    Candidate(string id = "", string name = "");
+    Candidate(string i = "", string n = "")
+        : id(i), name(n)
+    {
+    }
 
     // Hàm nhập thông tin
-    void inputInfo();
+    void inputInfo() 
+    {
+        cout << "Nhap ma sinh vien: ";
+        cin >> ws;
+        getline(cin, id);
+
+        cout << "Nhap ho ten: ";
+        getline(cin, name);
+    }
 
     // Getter
-    string getId() const;
-    string getName() const;
+    string getId() const 
+    {
+        return id;
+    }
+
+    string getName() const 
+    {
+        return name;
+    }
 
     // Nạp chồng toán tử
-    friend istream& operator>>(istream& in, Candidate& c);
-    friend ostream& operator<<(ostream& out, const Candidate& c);
+    friend istream& operator>>(istream& in, Candidate& c) 
+    {
+        cout << "Nhap ma sinh vien: ";
+        in >> ws;
+        getline(in, c.id);
+
+        cout << "Nhap ho ten: ";
+        getline(in, c.name);
+
+        return in;
+    }
+
+    friend ostream& operator<<(ostream& out, const Candidate& c) 
+    {
+        out << "Ma sinh vien: " << c.id << '\n';
+        out << "Ho ten       : " << c.name << '\n';
+        return out;
+    }
 };
