@@ -32,24 +32,29 @@ public:
     }
 
     // Gán thông tin thí sinh
-    void setCandidate(const Candidate& c) : candidate(c)
+    void setCandidate(const Candidate& c)
     {
+        candidate = c;
     }
 
     // Gán thời gian bắt đầu
-    void setStartTime(const string& time) : startTime(time)
+    void setStartTime(const string& time)
     {
+        startTime = time;
     }
 
     // Gán thời gian làm bài
-    void setDuration(int d) : duration(d);
+    void setDuration(int d)
     {
+        duration = d;
     }
 
     // Tính kết quả bài thi
     void calculateResult(vector<Question*> questions,
-        vector<char> candidateAnswers) : correctCount(0)
+        vector<char> candidateAnswers)
     {
+        correctCount = 0;
+
         for (int i = 0; i < questions.size(); i++)
         {
             if (candidateAnswers[i] == questions[i]->getCorrectAnswer())
