@@ -97,7 +97,7 @@ void QuizManager::startExam() {
 
 
     currentcandidate.inputInfo();
-    cout << "Nhấn Enter để bắt đầu";
+    cout << "Press enter to start...";
     cin.get();
 
     string startTime = TimeService::getCurrentTime();
@@ -117,7 +117,7 @@ void QuizManager::startExam() {
     finalResult.setDuration(duration);
     finalResult.calculateResult(questions, candidateAnswer);
 
-    cout << "Bạn đã hoàn thành bài thi trong " << duration << " giây." << endl;
+    cout << "You have finished your first attempt in " << duration << " seconds." << endl;
     reviewAndModifyAnswer();
 }
 
@@ -136,29 +136,29 @@ void QuizManager::reviewAndModifyAnswer()
         while (true)
         {
             int choiceIndex = 0;
-            cout << "Nhập câu muốn sửa: ";
+            cout << "Enter the question number you want to change:  ";
             while (!(cin >> choiceIndex))
             {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Vui lòng nhập một số nguyên hợp lệ: ";
+                cout << "Please enter a valid interger: ";
             }
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (!InputValidator::validateQuestionIndex(choiceIndex, totalQuestions))
             {
-                cout << "Sai số câu. Vui lòng nhập lại!" << endl;
+                cout << "Invalid question number! Please enter again..." << endl;
                 continue;
             }
 
             int index = choiceIndex - 1;
-            cout << "Xem lại câu số " << choiceIndex << endl;
+            cout << "Reviewing question no." << choiceIndex << endl;
             questions[index]->displayQuestion();
 
-            cout << "Đáp án hiện tại là: " << candidateAnswer[index] << endl;
-            cout << "Nhập lại đáp án A/B/C/D (hoặc S để bỏ qua): ";
+            cout << "Current answer  is: " << candidateAnswer[index] << endl;
+            cout << "Re-select A/B/C/D (or S to skip): ";
             candidateAnswer[index] = InputValidator::getValidatedAnswer();
-            cout << "cập nhật đáp án câu " << choiceIndex << " thành công!" << endl;
+            cout << "Updating answer of question no." << choiceIndex << " successfully!" << endl;
             break;
         }
     }
