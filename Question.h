@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+using namespace std;
 class Question
 {
 protected:
@@ -11,7 +11,8 @@ protected:
     std::vector<std::string> options; // cac lua chon
     char correctAnswer;               // dap an
 public:
-    Question(int id, const std::string &content, const std::vector<std::string> &options, char correctAnswer);
+    Question(int id, const string &content, const vector<string> &options, char correctAnswer) 
+        :id(id), content(content), options(options), correctAnswer(correctAnswer){}
     virtual ~Question() {}
     virtual void displayQuestion() const = 0;
     int getID() const { return id; }
@@ -20,7 +21,7 @@ public:
 class MultipleChoiceQuestion : public Question
 {
 public:
-    MultipleChoiceQuestion(int id, const std::string &content,const std::vector<std::string> &options, char correctAnswer)
+    MultipleChoiceQuestion(int id, const string &content,const vector<string> &options, char correctAnswer)
         : Question(id, content, options, correctAnswer)
     {
     }
