@@ -10,7 +10,8 @@ private:
 
 public:
     Candidate(string i = "", string n = "") : id(i), name(n) {}
-
+     
+    // operator overload nhập
     void inputInfo()
     {
         cout << "Nhap ma sinh vien: ";
@@ -22,5 +23,6 @@ public:
     }
 
     string getId() const { return id; }
-    string getName() const { return name; }
+    string getName() const { return name; } 
+    // setname() 
 };

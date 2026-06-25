@@ -38,7 +38,7 @@ QuizManager::~QuizManager()
     }
     questions.clear();
 }
-bool QuizManager::loadQuestionFromFile(string filename)
+bool QuizManager::loadQuestionFromFile(string filename) // code đọc lại file input
 {
     ifstream file(filename);
     if (!file.is_open())

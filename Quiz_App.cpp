@@ -3,11 +3,9 @@
 
 using namespace std;
 
+// cout == tiếng Anh
+
 int main() {
-    // Sửa lỗi hiển thị tiếng Việt có dấu trên Terminal/Console của Windows
-#if defined(_WIN32) || defined(_WIN64)
-    system("chcp 65001 > nul");
-#endif
 
     QuizManager manager;
 
