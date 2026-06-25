@@ -29,9 +29,9 @@ class QuizManager
         void reviewAndModifyAnswer();
 
 };
-QuizManager::QuizManager()
+QuizManager::QuizManager() : totalQuestions(0)
 {
-    totalQuestions = 0;
+    
 }
 QuizManager::~QuizManager()
 {
@@ -100,8 +100,12 @@ void QuizManager::startExam() {
     }
     time_t endSecond = time(0); // luu moc ket thuc
     int duration = TimeService::calculateElapsedSeconds(startSecond, endSecond);
-    finalResult.caculateResult(question, currentcandidate, startTime, duration);
+    finalResult.setCandidate(currentcandidate);
+    finalResult.setStartTime(startTime);
+    finalResult.setDuration(duration);
+    finalResult.calculateResult(question, candidateAnswer);
     cout << "Bạn đã hoàn thành bài thi lượt thi lần đầu tiên trong" << duration << endl;
+    reviewAndModifyAnswer();
 }
 void QuizManager::reviewAndModifyAnswer()
 {

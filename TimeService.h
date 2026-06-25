@@ -2,6 +2,7 @@
 #include <string>
 #include <ctime>
 #include <sstream>
+using namespace std;
 
 class TimeService {
 public:
@@ -9,11 +10,11 @@ public:
 
     //Truy cập thời gian hiện tại của máy tính, 
     //bóc tách lấy Ngày/Tháng/Năm để trả về chuỗi định dạng 
-    static std::string getCurrentDate() {
-        std::time_t now = std::time(nullptr);
-        std::tm* ltm = std::localtime(&now);
+    static string getCurrentDate() {
+        time_t now = time(nullptr);
+        tm* ltm = :localtime(&now);
 
-        std::ostringstream oss;
+        ostringstream oss;
         oss << ltm->tm_mday << "/"
             << (ltm->tm_mon + 1) << "/"
             << (ltm->tm_year + 1900);
@@ -21,11 +22,11 @@ public:
     }
 
     //bóc tách giờ, phút, giây của hệ thống
-    static std::string getCurrentTime() {
-        std::time_t now = std::time(nullptr);
-        std::tm* ltm = std::localtime(&now);
+    static string getCurrentTime() {
+        time_t now = time(nullptr);
+        tm* ltm = localtime(&now);
 
-        std::ostringstream oss;
+        ostringstream oss;
         oss << ltm->tm_hour << ":"
             << ltm->tm_min << ":"
             << ltm->tm_sec;
