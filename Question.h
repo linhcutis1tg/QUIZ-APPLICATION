@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+using namespace std;
 class Question
 {
 protected:
@@ -31,7 +31,7 @@ public:
 
     void displayQuestion() const override
     {
-        std::cout << "Cau " << id << ": " << content << std::endl;
+        cout << "Cau " << id << ": " << content << endl;
 
         char optionName = 'A';
         for (const std::string& option : options)
