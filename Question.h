@@ -27,7 +27,7 @@ public:
     }
     void displayQuestion() const override
     {
-        std::cout << "Cau " << id << ": " << content << std::endl;
+        cout << "Cau " << id << ": " << content << endl;
 
         char optionName = 'A';
 
