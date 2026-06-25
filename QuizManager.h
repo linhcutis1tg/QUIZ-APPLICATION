@@ -120,7 +120,8 @@ void QuizManager::reviewAndModifyAnswer()
          break;
 
         int choiceIndex;
-        cout << "Nhập câu muốn sửa " << choiceIndex;
+        cout << "Nhập câu muốn sửa ";
+        cin >> choiceIndex;
         if(!InputValidator::validateQuestionIndex( choiceIndex, totalQuestions))
         {
             cout << "Sai số câu. Vui lòng nhập lại!";
