@@ -6,34 +6,38 @@
 class Question
 {
 protected:
-    int id;                           // ma cau hoi
-    std::string content;              // noi dung cau hoi
-    std::vector<std::string> options; // cac lua chon
-    char correctAnswer;               // dap an
+    int id;
+    std::string content;
+    std::vector<std::string> options;
+    char correctAnswer;
+
 public:
-    Question(int id, const std::string &content, const std::vector<std::string> &options, char correctAnswer);
-    virtual ~Question() {}
+    Question(int id, const std::string& content, const std::vector<std::string>& options, char correctAnswer)
+        : id(id), content(content), options(options), correctAnswer(correctAnswer) {}
+
+    virtual ~Question() = default;
     virtual void displayQuestion() const = 0;
+
     int getID() const { return id; }
     char getCorrectAnswer() const { return correctAnswer; }
+    int getOptionCount() const { return static_cast<int>(options.size()); }
 };
+
 class MultipleChoiceQuestion : public Question
 {
 public:
-    MultipleChoiceQuestion(int id, const std::string &content,const std::vector<std::string> &options, char correctAnswer)
-        : Question(id, content, options, correctAnswer)
-    {
-    }
+    MultipleChoiceQuestion(int id, const std::string& content, const std::vector<std::string>& options, char correctAnswer)
+        : Question(id, content, options, correctAnswer) {}
+
     void displayQuestion() const override
     {
         std::cout << "Cau " << id << ": " << content << std::endl;
 
         char optionName = 'A';
-
-        for (int i = 0; i < options.size(); i++)
+        for (const std::string& option : options)
         {
-            std::cout << optionName << ". " << options[i] << std::endl;
-            optionName++;
+            std::cout << optionName << ". " << option << std::endl;
+            ++optionName;
         }
     }
 };

@@ -6,5 +6,5 @@ a
 5 Python C++ Java JavaScript PHP
 d
 3 Mot nam nhuan co bao nhieu ngay?
-3 364 365 366
+9 364 365 366 455 233 7893 23425 231 1
 c

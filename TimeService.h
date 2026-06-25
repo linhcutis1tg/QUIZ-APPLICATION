@@ -12,7 +12,7 @@ public:
     //bóc tách lấy Ngày/Tháng/Năm để trả về chuỗi định dạng 
     static string getCurrentDate() {
         time_t now = time(nullptr);
-        tm* ltm = :localtime(&now);
+        tm* ltm = localtime(&now);
 
         ostringstream oss;
         oss << ltm->tm_mday << "/"
