@@ -28,7 +28,7 @@ class QuizManager
         bool loadQuestionFromFile(string filename);
         void startExam();
         void reviewAndModifyAnswer();
-
+        
 };
 QuizManager::~QuizManager()
 {
@@ -96,7 +96,7 @@ void QuizManager::startExam() {
     cout << "Please enter your information!\n";
 
 
-    currentcandidate.inputInfo();
+    cin >> currentcandidate;
     cout << "Press enter to start...";
     cin.get();
 
