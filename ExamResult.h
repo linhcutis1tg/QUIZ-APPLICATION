@@ -43,7 +43,9 @@ public:
         cout << candidate.getId() << " - " << candidate.getName() << endl;
         cout << "Thoi gian bat dau : " << startTime << endl;
         cout << "Thoi gian lam bai : " << duration << " giay" << endl;
-        cout << "So cau dung       : " << correctCount << endl;
+        //// chủ đề 1 2 3 
+        // cin 
+        cout << "So cau dung       : " << correctCount << endl; // số câu đùng/tổng số câu hỏi = n của chủ đề 
         cout << "Tong diem         : " << totalScore << endl;
     }
 };

@@ -38,6 +38,7 @@ QuizManager::~QuizManager()
     }
     questions.clear();
 }
+
 bool QuizManager::loadQuestionFromFile(string filename) // code đọc lại file input
 {
     ifstream file(filename);
@@ -46,6 +47,8 @@ bool QuizManager::loadQuestionFromFile(string filename) // code đọc lại fil
         cout << "Cannot open file!" << endl;
         return false;
     }
+    // đọc chủ đề 
+    
     int n;
     file >> n;
     file.ignore();

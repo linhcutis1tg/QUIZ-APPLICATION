@@ -14,7 +14,8 @@ public:
             if (optionCount > 0) {
                 cout << "Nhập đáp án của bạn (S để bỏ qua): ";
             }
-
+            // nếu người dùng trả lời:
+                // người dùng có muốn sửa đáp án hay chuyển đến câu tiếp 
             if (!(cin >> input)) {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');

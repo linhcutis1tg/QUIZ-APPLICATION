@@ -2,6 +2,7 @@ Mon Toan
 Mon Anh 
 Mon Van
 1. Mon Toan
+3
 1 1 + 1 = ?
 4 4 5 2 3 
 c
@@ -12,6 +13,7 @@ b
 4 9 2 10 11
 d
 2. Mon Anh 
+2
 1 Hello nghia la gi?
 4 Chao Xin_chao Hi Hello 
 b
@@ -19,6 +21,7 @@ b
 4 Name old year name 
 d
 3. Mon Van
+1
 1 "Thuy Kieu" la tac pham cua ai?
 4 Nam_Cao Tuan_Hung Nguyen_Du Thanh_Hung
 c 
