@@ -39,8 +39,23 @@ QuizManager::~QuizManager()
     questions.clear();
 }
 
-bool QuizManager::loadQuestionFromFile(string filename) // code đọc lại file input
+ bool QuizManager::loadQuestionFromFile(string filename) // code đọc lại file input
 {
+    char choice;
+    // Lap chon mon hoc
+    while (true) {
+        cout << "\n====== CHOOSE SUBJECT ======\n";
+        cout << "1. Math\n2. English\n3. Literature\n";
+        cout << "Select (1-3): ";
+        cin >> choice;
+        cin.ignore(1000, '\n'); //xóa bộ đệm để tránh trôi lệnh đọc chuỗi
+        
+        if (choice >= '1' && choice <= '3') { //chọn đúng thì thoát vòng lặp
+            break;
+        }
+        cout << "Invalid choice! Select again.\n";
+    }
+
     ifstream file(filename);
     if (!file.is_open())
     {
@@ -48,45 +63,63 @@ bool QuizManager::loadQuestionFromFile(string filename) // code đọc lại fil
         return false;
     }
     // đọc chủ đề 
+    string line, target = string(1, choice) + ". ";
     
-    int n;
-    file >> n;
-    file.ignore();
-    for (int i = 0; i < n; i++)
-    {
-        int id;
-        string line;
-        getline(file, line);
+    // duyệt từng dòng để tìm tiêu đề môn học cần hiển thị
+    while (getline(file, line)) {
+        // Kiểm tra dòng chứa dấu ". " và ký tự đầu tiên là chữ số
+        if (line.find(". ") != string::npos && isdigit(line[0])) { // nếu vị trí tìm khác giá trị "ko tìm thấy" -> tìm thấy dòng có chưa ". "
+            //Nếu dòng đó khớp chính xác với mã môn học cần tìm thì dừng lại
+            if (line.find(target) != string::npos) {
+                break;
+            }
+        }
+    }
+    // Đọc câu hỏi của môn đó
+    int numQuestions = 0;
+    if(!(file >> numQuestions)) return false;
+    file.ignore(1000, '\n');
+    int questionLoaded = 0;
+    //Đọc từng câu hỏi
+    while(questionLoaded < numQuestions && getline(file, line)) {
+        //nếu gặp dòng trống thì bỏ qua để đọc tiếp
+        if (line.empty()) {
+            continue;
+        }
         stringstream ss(line);
-        ss >> id;
+        int id;
+        ss >> id; // tách lấy stt của câu hoit
         string content;
-        getline(ss, content);
-        if (!content.empty() && content[0] == ' ')
-            content.erase(0, 1);
+        getline(ss, content); //phần còn lại là nội dung
+        if(!content.empty() && content[0] == ' ') content.erase(0, 1); // xóa khoảng thừa đầu dòng
+            
         string optLine;
-        getline(file, optLine);
+        // Kiểm tra an toàn: Nếu file bị hết dòng đột ngột trước khi kịp đọc dòng options thì thoát loop
+        if(!getline(file, optLine)) break; 
         stringstream ss2(optLine);
         int count;
-        ss2 >> count;
+        ss2 >> count; // Đọc ký tự đáp án đúng
+
         vector<string> options;
-        for (int j = 0; j < count; j++)
-        {
+        for (int j = 0; j < count; j++) {
             string opt;
             ss2 >> opt;
             options.push_back(opt);
         }
+        string ansLine;
+        if(!getline(file, ansLine)) break;
+        stringstream ss3(ansLine);
         char ans;
-        file >> ans;
-        file.ignore();
-        ans = static_cast<char>(toupper(ans));
-
-        questions.push_back(
-            new MultipleChoiceQuestion(id, content, options, ans)
-        );
+        ss3 >> ans;
+        // Viết hoa đáp án đúng bằng toupper() trước khi khởi tạo đối tượng câu hỏi trắc nghiệm mới
+        questions.push_back(new MultipleChoiceQuestion(id, content, options, static_cast<char>(toupper(ans))));
+        questionLoaded++; // Tăng số lượng câu hỏi đã nạp thành công lên 1
     }
+    file.close();
+    
     totalQuestions =(int)questions.size();
-    candidateAnswer.resize(totalQuestions,' ');
-    return true;
+    candidateAnswer.assign(totalQuestions, 'S'); // Khởi tạo danh sách câu trả lời của thí sinh mặc định là 'S' (Skip)
+    return totalQuestions > 0; // Trả về true nếu nạp thành công ít nhất 1 câu hỏi
 }
 void QuizManager::startExam() {
 
@@ -98,7 +131,7 @@ void QuizManager::startExam() {
     cout << "*********************************\n";
     cout << "Please enter your information!\n";
 
-
+    
     cin >> currentcandidate;
     cout << "Press enter to start...";
     cin.get();
