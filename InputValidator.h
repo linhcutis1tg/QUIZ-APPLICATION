@@ -25,29 +25,29 @@ public:
 
 char InputValidator::getValidatedAnswer(int optionCount) 
 {
-    std::string input;
+    string input;
     while (true) {
         if (optionCount > 0) 
         {
-            std::cout << "Your answer (or 'S' to skip): ";
+            cout << "Your answer (or 'S' to skip): ";
         }
         
         // Xử lý luồng lỗi nhập dữ liệu (Ví dụ: nhập ký tự EOF hoặc lỗi phần cứng dòng nhập)
-        if (!(std::cin >> input)) 
+        if (!(cin >> input)) 
         {
-            std::cin.clear();   // Xóa cờ trạng thái lỗi của cin
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Xóa toàn bộ bộ đệm lỗi
-            std::cout << "Input error! Please try again.\n";
+            cin.clear();   // Xóa cờ trạng thái lỗi của cin
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Xóa toàn bộ bộ đệm lỗi
+            cout << "Input error! Please try again.\n";
             continue;
         }
 
         // Xóa phần ký tự thừa nếu người dùng vô tình gõ nhiều hơn một chữ cái
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         // Chỉ chấp nhận chuỗi nhập có độ dài đúng bằng 1 ký tự
         if (input.length() == 1) 
         {
-            char ch = static_cast<char>(std::toupper(input[0]));
+            char ch = static_cast<char>(toupper(input[0]));
             if (ch == 'S') return ch;
 
             if (optionCount > 0) {
@@ -57,7 +57,7 @@ char InputValidator::getValidatedAnswer(int optionCount)
                 if (ch >= 'A' && ch <= 'Z') return ch;
             }
         }
-        std::cout << "Invalid choice! Please enter a valid character.\n";
+        cout << "Invalid choice! Please enter a valid character.\n";
     }
 }
 

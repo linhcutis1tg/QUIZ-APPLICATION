@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+
 /**
  * @brief Lớp trừu tượng (Abstract Class) đại diện cho một Câu hỏi tổng quát.
  * Cung cấp khuôn mẫu cơ bản và tính đa hình cho các loại câu hỏi cụ thể.
@@ -11,8 +12,8 @@ class Question
 {
 protected:
     int id;                             // Mã số / Thứ tự câu hỏi
-    std::string content;                // Nội dung câu hỏi
-    std::vector<std::string> options;   // Danh sách các lựa chọn (A, B, C, D...)
+    string content;                // Nội dung câu hỏi
+    vector<string> options;   // Danh sách các lựa chọn (A, B, C, D...)
     char correctAnswer;                 // Đáp án đúng của câu hỏi (A/B/C/D)
 
 public:
@@ -60,10 +61,10 @@ MultipleChoiceQuestion::MultipleChoiceQuestion(int id, const std::string& conten
 
 void MultipleChoiceQuestion::displayQuestion() const 
 {
-    std::cout << "\nQuestion " << id << ": " << content << "\n";
+    cout << "\nQuestion " << id << ": " << content << "\n";
     char optionName = 'A'; // Ký tự đại diện bắt đầu từ 'A'
-    for (const std::string& option : options) {
-        std::cout << "  " << optionName << ". " << option << "\n";
+    for (const string& option : options) {
+        cout << "  " << optionName << ". " << option << "\n";
         ++optionName; // Tăng dần ký tự lên 'B', 'C', 'D'...
     }
 }

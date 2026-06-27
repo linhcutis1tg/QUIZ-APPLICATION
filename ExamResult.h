@@ -13,11 +13,11 @@ class ExamResult
 {
 private:
     Candidate candidate;    // Đối tượng thông tin thí sinh tham gia thi
-    std::string startTime;  // Thời điểm bắt đầu làm bài (hh:mm:ss)
+    string startTime;  // Thời điểm bắt đầu làm bài (hh:mm:ss)
     int duration;           // Thời điểm bắt đầu làm bài (hh:mm:ss)
     int correctCount;       // Số lượng câu trả lời đúng
     double totalScore;      // Điểm số quy đổi về thang điểm 10
-    std::string subject;    // Tên môn học thi hiện tại
+    string subject;    // Tên môn học thi hiện tại
     int totalQuestions;     // Tổng số câu hỏi của bài thi
 
 public:
@@ -70,13 +70,13 @@ void ExamResult::calculateResult(const std::vector<Question*>& questions, const 
 
 void ExamResult::displayFinalReport() const 
 {
-    std::cout << "\n==================== EXAM RESULT ====================\n";
-    std::cout << " Student ID    : " << candidate.getId() << "\n";
-    std::cout << " Full Name     : " << candidate.getName() << "\n";
-    std::cout << " Subject       : " << subject << "\n";
-    std::cout << " Start Time    : " << startTime << "\n";
-    std::cout << " Duration      : " << duration << " seconds\n";
-    std::cout << " Correct Answ. : " << correctCount << "/" << totalQuestions << "\n";
-    std::cout << " Total Score   : " << totalScore << "/10.0\n";
-    std::cout << "=====================================================\n";
+    cout << "\n==================== EXAM RESULT ====================\n";
+    cout << " Student ID    : " << candidate.getId() << "\n";
+    cout << " Full Name     : " << candidate.getName() << "\n";
+    cout << " Subject       : " << subject << "\n";
+    cout << " Start Time    : " << startTime << "\n";
+    cout << " Duration      : " << duration << " seconds\n";
+    cout << " Correct Answ. : " << correctCount << "/" << totalQuestions << "\n";
+    cout << " Total Score   : " << totalScore << "/10.0\n";
+    cout << "=====================================================\n";
 }
