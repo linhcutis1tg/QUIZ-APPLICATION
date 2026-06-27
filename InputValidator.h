@@ -62,28 +62,41 @@ char InputValidator::getValidatedAnswer(int optionCount)
     }
 }
 
-bool InputValidator::validateQuestionIndex(int choiceIndex, int totalQuestions) 
-{
-    return choiceIndex >= 1 && choiceIndex <= totalQuestions;
-}
-
-//Cài hàm hỏi nhập lại
-bool InputValidator::askToReenter()
-{
-    char choice;
+//Hàm nhập lại đáp án
+if (isAnswerValid) {
+    char confirm;
     while (true) {
         std::cout << "Do you want to re-enter the answer? (Y/N): ";
-        if (std::cin >> choice) {
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Xóa bộ đệm thừa
+        if (std::cin >> confirm) {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            confirm = static_cast<char>(std::toupper(confirm));
 
-            choice = static_cast<char>(std::toupper(choice));
-            if (choice == 'Y') return true;  // Đồng ý nhập lại
-            if (choice == 'N') return false; // Không nhập lại
+            if (confirm == 'Y') {
+                break; // Nhập lại 
+            }
+            if (confirm == 'N') {
+                return ch; // Không chọn lại và trả đáp án
+            }
         }
         else {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
-        std::cout << "Invalid selection! Please enter only Y (Yes) hoac N (No).\n";
+        std::cout << "Invalid selection! Please enter only Y (Yes) or N (No).\n";
     }
+
+    // Nếu thoát ra bằng lệnh 'break' (chọn Y), câu lệnh continue này 
+    // sẽ đưa người dùng quay trở lại dòng "Your answer..." để nhập lại câu đó.
+    continue;
+}
+        }
+
+        std::cout << "Invalid choice! Please enter a valid character.\n";
+    }
+}
+
+
+bool InputValidator::validateQuestionIndex(int choiceIndex, int totalQuestions) 
+{
+    return choiceIndex >= 1 && choiceIndex <= totalQuestions;
 }
