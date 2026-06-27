@@ -11,266 +11,221 @@
 #include "InputValidator.h"
 #include "TimeService.h"
 
-#include <iostream>
-using namespace std;
-
 class QuizManager 
 {
-    private:
-        vector<Question*> questions;
-        vector<char> candidateAnswer;
-        int totalQuestions;
-        string currentSubject;
-        Candidate currentcandidate;
-        ExamResult finalResult;
-    public:
-        QuizManager() : totalQuestions(0) {}
-        ~QuizManager();
-        bool loadQuestionFromFile(string filename);
-        void startExam();
-        void reviewAndModifyAnswer();
-        
+private:
+    std::vector<Question*> questions;
+    std::vector<char> candidateAnswers;
+    int totalQuestions;
+    std::string currentSubject;
+    Candidate currentCandidate;
+    ExamResult finalResult;
+
+public:
+    QuizManager();
+    ~QuizManager();
+
+    bool loadQuestionFromFile(const std::string& filename);
+    void startExam();
+    void reviewAndModifyAnswer();
 };
-QuizManager::~QuizManager()
-{
-    for (Question* q : questions)
-    {
+
+QuizManager::QuizManager() : totalQuestions(0) {}
+
+QuizManager::~QuizManager() {
+    for (Question* q : questions) {
         delete q;
     }
     questions.clear();
 }
 
- bool QuizManager::loadQuestionFromFile(string filename) // code đọc lại file input
-{
-    // Vẽ khung giao diện trang trí bắt mắt lúc mở app giống video mẫu
-    cout << "*********************************\n";
-    cout << "* Quiz Program                  *\n";
-    cout << "* Date: " << TimeService::getCurrentDate() << "              *\n"; // Gọi hàm lấy ngày tự động
-    // thời gian giờ:phút:giây
-    // Mon toan : 10 cau
-    // Mon Anh : 12 cau
-    //cout << "* Number of questions: " << totalQuestions << "        *\n";
-    cout << "*********************************\n";
-    cout << "Please enter your information!\n";
-    cin >> currentcandidate;
-    for (Question* q : questions)
-    {
+bool QuizManager::loadQuestionFromFile(const std::string& filename) {
+    std::cout << "*************************************************\n";
+    std::cout << "* QUIZ PROGRAM                  *\n";
+    std::cout << "* Date: " << TimeService::getCurrentDate() << "                             *\n";
+    std::cout << "*************************************************\n";
+    std::cout << "Please enter your information:\n";
+    std::cin >> currentCandidate;
+
+    for (Question* q : questions) {
         delete q;
     }
     questions.clear();
-    candidateAnswer.clear();
+    candidateAnswers.clear();
     totalQuestions = 0;
     currentSubject.clear();
-    ifstream file(filename);
-    if (!file.is_open())
-    {
-        cout << "Cannot open file!" << endl;
+
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cout << "Error: Cannot open file " << filename << "!\n";
         return false;
     }
 
-    vector<string> subjects;
-    string line;
+    std::vector<std::string> subjects;
+    std::string line;
 
-    // Đọc danh sách môn ở đầu file
-    while (getline(file, line))
-    {
-        if (line.empty())
-            continue;
-
-        // Gặp dòng "1. ..." thì dừng
-        if (isdigit(line[0]))
-            break;
-
+    while (std::getline(file, line)) {
+        if (line.empty()) continue;
+        if (std::isdigit(line[0])) break;
         subjects.push_back(line);
     }
-    if (subjects.empty())
-    {
-        cout << "No subjects found!\n";
+
+    if (subjects.empty()) {
+        std::cout << "No subjects found in file!\n";
         file.close();
         return false;
     }
-    // Hiển thị menu
-    cout << "\n====== CHOOSE SUBJECT ======\n";
-    for (size_t i = 0; i < subjects.size(); i++)
-    {
-        cout << i + 1 << ". " << subjects[i] << endl;
+
+    std::cout << "\n================ CHOOSE SUBJECT ================\n";
+    for (size_t i = 0; i < subjects.size(); i++) {
+        std::cout << " " << i + 1 << ". " << subjects[i] << "\n";
     }
+    std::cout << "================================================\n";
 
     int choice;
-
-    while (true)
-    {
-        cout << "Select: ";
-
-        if (!(cin >> choice))
-        {
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cout << "Invalid input! Please enter a number.\n";
+    while (true) {
+        std::cout << "Select subject (1-" << subjects.size() << "): ";
+        if (!(std::cin >> choice)) {
+            std::cin.clear();
+            std::cin.ignore(1000, '\n');
+            std::cout << "Invalid input! Please enter a number.\n";
             continue;
         }
-
-        if (choice >= 1 && choice <= (int)subjects.size())
-            break;
-
-        cout << "Invalid choice! Select again.\n";
+        if (choice >= 1 && choice <= static_cast<int>(subjects.size())) break;
+        std::cout << "Choice out of range! Select again.\n";
     }
 
-    cin.ignore(1000, '\n');
+    std::cin.ignore(1000, '\n');
     file.clear();
     file.seekg(0);
 
-    // Lưu tên môn hiện tại
     currentSubject = subjects[choice - 1];
-
-    string target = to_string(choice) + ". ";
-
+    std::string target = std::to_string(choice) + ". ";
     bool found = false;
 
-    while (getline(file, line))
-    {
-        if (line.find(target) == 0)
-        {
+    while (std::getline(file, line)) {
+        if (line.find(target) == 0) {
             found = true;
             break;
         }
     }
 
-    if (!found)
-    {
-        cout << "Subject not found!\n";
+    if (!found) {
+        std::cout << "Subject section not found in file!\n";
         file.close();
         return false;
     }
-    // Đọc câu hỏi của môn đó
+
     int numQuestions = 0;
-    if (!(file >> numQuestions))
-    {
+    if (!(file >> numQuestions)) {
         file.close();
         return false;
     }
     file.ignore(1000, '\n');
+
     int questionLoaded = 0;
-    //Đọc từng câu hỏi
-    while(questionLoaded < numQuestions && getline(file, line)) {
-        //nếu gặp dòng trống thì bỏ qua để đọc tiếp
-        if (line.empty()) {
-            continue;
-        }
-        stringstream ss(line);
+    while (questionLoaded < numQuestions && std::getline(file, line)) {
+        if (line.empty()) continue;
+
+        std::stringstream ss(line);
         int id;
-        ss >> id; // tách lấy stt của câu hoit
-        string content;
-        getline(ss, content); //phần còn lại là nội dung
-        if(!content.empty() && content[0] == ' ') content.erase(0, 1); // xóa khoảng thừa đầu dòng
+        ss >> id;
+        std::string content;
+        std::getline(ss, content);
+        if (!content.empty() && content[0] == ' ') content.erase(0, 1);
             
-        string optLine;
-        // Kiểm tra an toàn: Nếu file bị hết dòng đột ngột trước khi kịp đọc dòng options thì thoát loop
-        if(!getline(file, optLine)) break; 
-        stringstream ss2(optLine);
+        std::string optLine;
+        if (!std::getline(file, optLine)) break; 
+        std::stringstream ss2(optLine);
         int count;
-        ss2 >> count; // Đọc số lượng các lựa chọn
+        ss2 >> count;
 
-        vector<string> options;
-        for (int j = 0; j < count; j++)
-        {
-            string opt;
-
-            if (!(ss2 >> opt))
-                break;
-
+        std::vector<std::string> options;
+        for (int j = 0; j < count; j++) {
+            std::string opt;
+            if (!(ss2 >> opt)) break;
             options.push_back(opt);
         }
-        string ansLine;
-        if(!getline(file, ansLine)) break;
-        stringstream ss3(ansLine);
+
+        std::string ansLine;
+        if (!std::getline(file, ansLine)) break;
+        std::stringstream ss3(ansLine);
         char ans;
-        if (!(ss3 >> ans))
-            break;
-        // Viết hoa đáp án đúng bằng toupper() trước khi khởi tạo đối tượng câu hỏi trắc nghiệm mới
-        questions.push_back(new MultipleChoiceQuestion(id, content, options, static_cast<char>(toupper(ans))));
-        questionLoaded++; // Tăng số lượng câu hỏi đã nạp thành công lên 1
+        if (!(ss3 >> ans)) break;
+
+        questions.push_back(new MultipleChoiceQuestion(id, content, options, static_cast<char>(std::toupper(ans))));
+        questionLoaded++;
     }
     file.close();
     
-    totalQuestions =(int)questions.size();
-    candidateAnswer.assign(totalQuestions, 'S'); // Khởi tạo danh sách câu trả lời của thí sinh mặc định là 'S' (Skip)
-    return totalQuestions > 0; // Trả về true nếu nạp thành công ít nhất 1 câu hỏi
+    totalQuestions = static_cast<int>(questions.size());
+    candidateAnswers.assign(totalQuestions, 'S'); 
+    return totalQuestions > 0;
 }
+
 void QuizManager::startExam() {
+    std::cout << "\nPress Enter to start the exam...";
+    std::cin.get();
 
-    
-    
-   
-    cout << "Press enter to start...";
-    cin.get();
-
-    string startTime = TimeService::getCurrentTime();
-    time_t startSecond = time(0);
+    std::string startTime = TimeService::getCurrentTime();
+    std::time_t startSecond = std::time(0);
 
     for (int i = 0; i < totalQuestions; i++) {
         questions[i]->displayQuestion();
         int optionCount = questions[i]->getOptionCount();
-        candidateAnswer[i] = InputValidator::getValidatedAnswer(optionCount);
+        candidateAnswers[i] = InputValidator::getValidatedAnswer(optionCount);
     }
 
-    time_t endSecond = time(0);
+    std::time_t endSecond = std::time(0);
     int duration = TimeService::calculateElapsedSeconds(startSecond, endSecond);
 
-    finalResult.setCandidate(currentcandidate);
+    finalResult.setCandidate(currentCandidate);
     finalResult.setStartTime(startTime);
     finalResult.setDuration(duration);
     finalResult.setSubject(currentSubject);          
     finalResult.setTotalQuestions(totalQuestions);
-    finalResult.calculateResult(questions, candidateAnswer);
+    finalResult.calculateResult(questions, candidateAnswers);
 
-    cout << "You have finished your first attempt in " << duration << " seconds." << endl;
+    std::cout << "\nYou have finished your exam in " << duration << " seconds.\n";
     reviewAndModifyAnswer();
 }
 
-void QuizManager::reviewAndModifyAnswer()
-{
-    while (true)
-    {
+void QuizManager::reviewAndModifyAnswer() {
+    while (true) {
         char choice;
-        cout << "Do you want to change any answers? (Y/N): ";
-        cin >> choice;
-        choice = toupper(choice);
+        std::cout << "Do you want to review or change any answers? (Y/N): ";
+        std::cin >> choice;
+        choice = static_cast<char>(std::toupper(choice));
 
-        if (choice != 'Y')
-            break;
+        if (choice != 'Y') break;
 
-        while (true)
-        {
+        while (true) {
             int choiceIndex = 0;
-            cout << "Enter the question number you want to change:  ";
-            while (!(cin >> choiceIndex))
-            {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Please enter a valid interger: ";
+            std::cout << "Enter the question number you want to change (1-" << totalQuestions << "): ";
+            while (!(std::cin >> choiceIndex)) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Please enter a valid integer: ";
             }
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-            if (!InputValidator::validateQuestionIndex(choiceIndex, totalQuestions))
-            {
-                cout << "Invalid question number! Please enter again..." << endl;
+            if (!InputValidator::validateQuestionIndex(choiceIndex, totalQuestions)) {
+                std::cout << "Question number out of range! Please try again.\n";
                 continue;
             }
 
             int index = choiceIndex - 1;
-            cout << "Reviewing question no." << choiceIndex << endl;
+            std::cout << "\n--- Reviewing Question " << choiceIndex << " ---";
             questions[index]->displayQuestion();
 
-            cout << "Current answer  is: " << candidateAnswer[index] << endl;
-            cout << "Re-select A/B/C/D (or S to skip): ";
-            candidateAnswer[index] = InputValidator::getValidatedAnswer();
-            cout << "Updating answer of question no." << choiceIndex << " successfully!" << endl;
+            std::cout << "Current saved answer: " << candidateAnswers[index] << "\n";
+            std::cout << "Enter new choice ";
+            candidateAnswers[index] = InputValidator::getValidatedAnswer(questions[index]->getOptionCount());
+            std::cout << "Answer for question " << choiceIndex << " updated successfully!\n\n";
             break;
         }
     }
-    finalResult.setSubject(currentSubject);
-    finalResult.setTotalQuestions(totalQuestions);
-    finalResult.calculateResult(questions, candidateAnswer);
+    
+    finalResult.calculateResult(questions, candidateAnswers);
     finalResult.displayFinalReport();
 }
