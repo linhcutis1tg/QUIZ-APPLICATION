@@ -41,6 +41,11 @@ QuizManager::~QuizManager()
 
  bool QuizManager::loadQuestionFromFile(string filename) // code đọc lại file input
 {
+    cout << "*********************************\n";
+    cout << "* Quiz Program                  *\n";
+    cout << "* Date: " << TimeService::getCurrentDate() << "              *\n"; // Gọi hàm lấy ngày tự động
+    //cout << "* Number of questions: " << totalQuestions << "        *\n";
+    cout << "*********************************\n";
     char choice;
     // Lap chon mon hoc
     while (true) {
@@ -124,11 +129,7 @@ QuizManager::~QuizManager()
 void QuizManager::startExam() {
 
     // Vẽ khung giao diện trang trí bắt mắt lúc mở app giống video mẫu
-    cout << "*********************************\n";
-    cout << "* Quiz Program                  *\n";
-    cout << "* Date: " << TimeService::getCurrentDate() << "              *\n"; // Gọi hàm lấy ngày tự động
-    //cout << "* Number of questions: " << totalQuestions << "        *\n";
-    cout << "*********************************\n";
+    
     cout << "Please enter your information!\n";
 
     
