@@ -71,21 +71,25 @@ bool InputValidator::validateQuestionIndex(int choiceIndex, int totalQuestions)
 bool InputValidator::askToReenter()
 {
     string input;
-    while (true) {
-        cout << "Do you want to re-enter the answer? (Y/N): ";
-        if (!(cin >> input)) {
-            cin.clear(); // Xóa bộ đệm thừa
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-            cout << "Input error! Please try again.\n";
+    while (true)
+    {
+        cout << "Do you want to change this answer? (Y/N): ";
+        if (!(cin >> input))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
         }
-        char choice = static_cast<char>(toupper(input[0]));
 
-        if (choice == 'Y')
-            return true;
-
-        if (choice == 'N')
-            return false;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        if (input.length() != 1)
+        {
+            cout << "Please enter only Y or N.\n";
+            continue;
+        }
+        char choice = toupper(input[0]);
+        if (choice == 'Y') return true;
+        if (choice == 'N') return false;
 
         cout << "Invalid choice! Please enter Y or N.\n";
     }
