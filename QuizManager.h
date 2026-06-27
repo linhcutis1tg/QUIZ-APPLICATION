@@ -20,6 +20,7 @@ class QuizManager
         vector<Question*> questions;
         vector<char> candidateAnswer;
         int totalQuestions;
+        string currentSubject;
         Candidate currentcandidate;
         ExamResult finalResult;
     public:
@@ -49,43 +50,102 @@ QuizManager::~QuizManager()
     cout << "*********************************\n";
     cout << "Please enter your information!\n";
     cin >> currentcandidate;
-    char choice;
-    // Lap chon mon hoc
-    while (true) {
-        cout << "\n====== CHOOSE SUBJECT ======\n";
-        cout << "1. Math\n2. English\n3. Literature\n";
-        cout << "Select (1-3): ";
-        cin >> choice;
-        cin.ignore(1000, '\n'); //xóa bộ đệm để tránh trôi lệnh đọc chuỗi
-        
-        if (choice >= '1' && choice <= '3') { //chọn đúng thì thoát vòng lặp
-            break;
-        }
-        cout << "Invalid choice! Select again.\n";
+    for (Question* q : questions)
+    {
+        delete q;
     }
-
+    questions.clear();
+    candidateAnswer.clear();
+    totalQuestions = 0;
+    currentSubject.clear();
     ifstream file(filename);
     if (!file.is_open())
     {
         cout << "Cannot open file!" << endl;
         return false;
     }
-    // đọc chủ đề 
-    string line, target = string(1, choice) + ". ";
-    
-    // duyệt từng dòng để tìm tiêu đề môn học cần hiển thị
-    while (getline(file, line)) {
-        // Kiểm tra dòng chứa dấu ". " và ký tự đầu tiên là chữ số
-        if (line.find(". ") != string::npos && isdigit(line[0])) { // nếu vị trí tìm khác giá trị "ko tìm thấy" -> tìm thấy dòng có chưa ". "
-            //Nếu dòng đó khớp chính xác với mã môn học cần tìm thì dừng lại
-            if (line.find(target) != string::npos) {
-                break;
-            }
+
+    vector<string> subjects;
+    string line;
+
+    // Đọc danh sách môn ở đầu file
+    while (getline(file, line))
+    {
+        if (line.empty())
+            continue;
+
+        // Gặp dòng "1. ..." thì dừng
+        if (isdigit(line[0]))
+            break;
+
+        subjects.push_back(line);
+    }
+    if (subjects.empty())
+    {
+        cout << "No subjects found!\n";
+        file.close();
+        return false;
+    }
+    // Hiển thị menu
+    cout << "\n====== CHOOSE SUBJECT ======\n";
+    for (size_t i = 0; i < subjects.size(); i++)
+    {
+        cout << i + 1 << ". " << subjects[i] << endl;
+    }
+
+    int choice;
+
+    while (true)
+    {
+        cout << "Select: ";
+
+        if (!(cin >> choice))
+        {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid input! Please enter a number.\n";
+            continue;
         }
+
+        if (choice >= 1 && choice <= (int)subjects.size())
+            break;
+
+        cout << "Invalid choice! Select again.\n";
+    }
+
+    cin.ignore(1000, '\n');
+    file.clear();
+    file.seekg(0);
+
+    // Lưu tên môn hiện tại
+    currentSubject = subjects[choice - 1];
+
+    string target = to_string(choice) + ". ";
+
+    bool found = false;
+
+    while (getline(file, line))
+    {
+        if (line.find(target) == 0)
+        {
+            found = true;
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        cout << "Subject not found!\n";
+        file.close();
+        return false;
     }
     // Đọc câu hỏi của môn đó
     int numQuestions = 0;
-    if(!(file >> numQuestions)) return false;
+    if (!(file >> numQuestions))
+    {
+        file.close();
+        return false;
+    }
     file.ignore(1000, '\n');
     int questionLoaded = 0;
     //Đọc từng câu hỏi
@@ -109,16 +169,21 @@ QuizManager::~QuizManager()
         ss2 >> count; // Đọc số lượng các lựa chọn
 
         vector<string> options;
-        for (int j = 0; j < count; j++) {
+        for (int j = 0; j < count; j++)
+        {
             string opt;
-            ss2 >> opt;
+
+            if (!(ss2 >> opt))
+                break;
+
             options.push_back(opt);
         }
         string ansLine;
         if(!getline(file, ansLine)) break;
         stringstream ss3(ansLine);
         char ans;
-        ss3 >> ans;
+        if (!(ss3 >> ans))
+            break;
         // Viết hoa đáp án đúng bằng toupper() trước khi khởi tạo đối tượng câu hỏi trắc nghiệm mới
         questions.push_back(new MultipleChoiceQuestion(id, content, options, static_cast<char>(toupper(ans))));
         questionLoaded++; // Tăng số lượng câu hỏi đã nạp thành công lên 1
@@ -152,6 +217,8 @@ void QuizManager::startExam() {
     finalResult.setCandidate(currentcandidate);
     finalResult.setStartTime(startTime);
     finalResult.setDuration(duration);
+    finalResult.setSubject(currentSubject);          
+    finalResult.setTotalQuestions(totalQuestions);
     finalResult.calculateResult(questions, candidateAnswer);
 
     cout << "You have finished your first attempt in " << duration << " seconds." << endl;
@@ -199,7 +266,8 @@ void QuizManager::reviewAndModifyAnswer()
             break;
         }
     }
-
+    finalResult.setSubject(currentSubject);
+    finalResult.setTotalQuestions(totalQuestions);
     finalResult.calculateResult(questions, candidateAnswer);
     finalResult.displayFinalReport();
 }
