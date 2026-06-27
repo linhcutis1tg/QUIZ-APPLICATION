@@ -59,8 +59,6 @@ QuizManager::~QuizManager() {
     }
     questions.clear();
 }
-TimeService::getCurrentDate()
-TimeService::getCurrentDate()
 bool QuizManager::loadQuestionFromFile(const string& filename) 
 {
     // Hiển thị màn hình chào mừng ứng dụng và lấy thông tin thí sinh đầu vào
@@ -216,7 +214,7 @@ void QuizManager::startExam() {
         cout << "  Subject : " << currentSubject << endl;
         cout << "╚══════════════════════════════════════════════════════════════╝\n";
 
-        questions[i]->displayQuestion()
+        questions[i]->displayQuestion();
 
         int optionCount = questions[i]->getOptionCount();
         candidateAnswers[i] = InputValidator::getValidatedAnswer(optionCount);
