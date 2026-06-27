@@ -67,4 +67,5 @@ void MultipleChoiceQuestion::displayQuestion() const
         cout << "  " << optionName << ". " << option << "\n";
         ++optionName; // Tăng dần ký tự lên 'B', 'C', 'D'...
     }
+    cout << "--------------------------------------------------\n";
 }

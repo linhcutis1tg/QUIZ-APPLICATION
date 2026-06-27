@@ -9,8 +9,9 @@
 class InputValidator {
 public:
     InputValidator() = delete; // Khóa việc tạo instance vì class này chỉ cung cấp hàm Static tiện ích
-    static bool askToReenter();
     
+    static bool askToReenter();
+
     /**
      * @brief Ràng buộc dữ liệu đáp án nhập vào từ người dùng (Chỉ nhận ký tự đáp án hợp lệ hoặc 'S' để bỏ qua).
      * @param optionCount Số lượng phương án lựa chọn tối đa của câu hỏi (Ví dụ: 4 tương ứng A, B, C, D).
@@ -93,4 +94,10 @@ bool InputValidator::askToReenter()
 
         cout << "Invalid choice! Please enter Y or N.\n";
     }
+}
+
+
+bool InputValidator::validateQuestionIndex(int choiceIndex, int totalQuestions) 
+{
+    return choiceIndex >= 1 && choiceIndex <= totalQuestions;
 }

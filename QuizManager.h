@@ -63,11 +63,12 @@ QuizManager::~QuizManager() {
 bool QuizManager::loadQuestionFromFile(const string& filename) 
 {
     // Hiển thị màn hình chào mừng ứng dụng và lấy thông tin thí sinh đầu vào
-    cout << "*************************************************\n";
-    cout << "* QUIZ APPLICATION                  *\n";
-    cout << "* Date: " << TimeService::getCurrentDate() << "                             *\n";
-    cout << "* Time: " << TimeService::getCurrentTime() << "                              *\n";
-    cout << "*************************************************\n";
+    cout << "=========================================================\n";
+    cout << "                 QUIZ EXAM SYSTEM\n";
+    cout << "=========================================================\n";
+    cout << " Date : " << TimeService::getCurrentDate() << endl;
+    cout << " Time : " << TimeService::getCurrentTime() << endl;
+    cout << "=========================================================\n\n";
     cout << "Please enter your information:\n";
     cin >> currentCandidate;
 
@@ -103,7 +104,7 @@ bool QuizManager::loadQuestionFromFile(const string& filename)
     }
 
     // BƯỚC 2: Hiển thị Menu chọn môn học trực quan cho người dùng
-    cout << "\n================ CHOOSE SUBJECT ================\n";
+    std::cout << "\n================ SUBJECT LIST ================\n";
     for (size_t i = 0; i < subjects.size(); i++) {
         cout << " " << i + 1 << ". " << subjects[i] << "\n";
     }
@@ -245,6 +246,8 @@ void QuizManager::startExam() {
 void QuizManager::reviewAndModifyAnswer() {
     while (true) {
         char choice;
+        choice = static_cast<char>(toupper(choice));
+        cout << "\n==================================================\n";
         cout << "Do you want to review or change any answers? (Y/N): ";
         cin >> choice;
         choice = static_cast<char>(toupper(choice));
