@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+using namespace std;
 
 /**
  * @brief Lớp trừu tượng (Abstract Class) đại diện cho một Câu hỏi tổng quát.
@@ -41,7 +41,7 @@ public:
 class MultipleChoiceQuestion : public Question 
 {
 public:
-    MultipleChoiceQuestion(int id, const std::string& content, const std::vector<std::string>& options, char correctAnswer);
+    MultipleChoiceQuestion(int id, const string& content, const vector<string>& options, char correctAnswer);
     
     /**
      * @brief Triển khai chi tiết cách hiển thị câu hỏi trắc nghiệm kèm theo ký tự đầu dòng (A., B., C...)
@@ -49,14 +49,14 @@ public:
     void displayQuestion() const override;
 };
 
-Question::Question(int id, const std::string& content, const std::vector<std::string>& options, char correctAnswer)
+Question::Question(int id, const string& content, const vector<string>& options, char correctAnswer)
     : id(id), content(content), options(options), correctAnswer(correctAnswer) {}
 
 int Question::getID() const { return id; }
 char Question::getCorrectAnswer() const { return correctAnswer; }
 int Question::getOptionCount() const { return static_cast<int>(options.size()); }
 
-MultipleChoiceQuestion::MultipleChoiceQuestion(int id, const std::string& content, const std::vector<std::string>& options, char correctAnswer)
+MultipleChoiceQuestion::MultipleChoiceQuestion(int id, const string& content, const vector<string>& options, char correctAnswer)
     : Question(id, content, options, correctAnswer) {}
 
 void MultipleChoiceQuestion::displayQuestion() const 

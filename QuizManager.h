@@ -209,10 +209,20 @@ void QuizManager::startExam() {
     time_t startSecond = time(0);
 
     // Vòng lặp hiển thị và lấy đáp án cho từng câu hỏi
-    for (int i = 0; i < totalQuestions; i++) {
+    for (int i = 0; i < totalQuestions; i++)
+    {
         questions[i]->displayQuestion();
+
         int optionCount = questions[i]->getOptionCount();
+
         candidateAnswers[i] = InputValidator::getValidatedAnswer(optionCount);
+
+        while (InputValidator::askToReenter())
+        {
+            cout << "Enter new answer: ";
+            candidateAnswers[i] =
+                InputValidator::getValidatedAnswer(optionCount);
+        }
     }
 
     // Ghi nhận mốc thời gian kết thúc bài thi và tính toán thời gian làm bài thực tế
@@ -262,8 +272,20 @@ void QuizManager::reviewAndModifyAnswer() {
             questions[index]->displayQuestion();
 
             cout << "Current saved answer: " << candidateAnswers[index] << "\n";
-            cout << "Enter new choice ";
-            candidateAnswers[index] = InputValidator::getValidatedAnswer(questions[index]->getOptionCount());
+
+            if (InputValidator::askToReenter())
+            {
+                cout << "Enter new choice: ";
+                candidateAnswers[index] =
+                    InputValidator::getValidatedAnswer(
+                        questions[index]->getOptionCount());
+
+                cout << "Answer updated successfully!\n";
+            }
+            else
+            {
+                cout << "Answer unchanged.\n";
+            }
             cout << "Answer for question " << choiceIndex << " updated successfully!\n\n";
             break;
         }

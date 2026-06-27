@@ -26,9 +26,9 @@ public:
 
     // Các hàm Setter cập nhật thông tin bài thi từ tiến trình thi ngoài
     void setCandidate(const Candidate& c);
-    void setStartTime(const std::string& time);
+    void setStartTime(const string& time);
     void setDuration(int d);
-    void setSubject(const std::string& s);
+    void setSubject(const string& s);
     void setTotalQuestions(int total);
 
     /**
@@ -36,7 +36,7 @@ public:
      * @param questions Danh sách con trỏ lưu câu hỏi gốc của đề thi.
      * @param candidateAnswers Danh sách các ký tự lựa chọn của thí sinh.
      */
-    void calculateResult(const std::vector<Question*>& questions, const std::vector<char>& candidateAnswers);
+    void calculateResult(const vector<Question*>& questions, const vector<char>& candidateAnswers);
     
     /**
      * @brief Xuất báo cáo tổng quan kết quả cuối cùng theo biểu mẫu bảng căn lề cố định.
@@ -48,12 +48,12 @@ ExamResult::ExamResult()
     : startTime(""), duration(0), correctCount(0), totalScore(0.0), subject(""), totalQuestions(0) {}
 
 void ExamResult::setCandidate(const Candidate& c) { candidate = c; }
-void ExamResult::setStartTime(const std::string& time) { startTime = time; }
+void ExamResult::setStartTime(const string& time) { startTime = time; }
 void ExamResult::setDuration(int d) { duration = d; }
-void ExamResult::setSubject(const std::string& s) { subject = s; }
+void ExamResult::setSubject(const string& s) { subject = s; }
 void ExamResult::setTotalQuestions(int total) { totalQuestions = total; }
 
-void ExamResult::calculateResult(const std::vector<Question*>& questions, const std::vector<char>& candidateAnswers) 
+void ExamResult::calculateResult(const vector<Question*>& questions, const vector<char>& candidateAnswers) 
 {
     correctCount = 0;
     for (size_t i = 0; i < questions.size(); ++i) {
