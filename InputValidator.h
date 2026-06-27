@@ -63,11 +63,6 @@ char InputValidator::getValidatedAnswer(int optionCount)
     }
 }
 
-bool InputValidator::validateQuestionIndex(int choiceIndex, int totalQuestions) 
-{
-    return choiceIndex >= 1 && choiceIndex <= totalQuestions;
-}
-
 //Cài hàm hỏi nhập lại
 bool InputValidator::askToReenter()
 {
