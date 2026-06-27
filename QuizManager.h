@@ -46,6 +46,9 @@ QuizManager::~QuizManager()
     cout << "*********************************\n";
     cout << "* Quiz Program                  *\n";
     cout << "* Date: " << TimeService::getCurrentDate() << "              *\n"; // Gọi hàm lấy ngày tự động
+    // thời gian giờ:phút:giây
+    // Mon toan : 10 cau
+    // Mon Anh : 12 cau
     //cout << "* Number of questions: " << totalQuestions << "        *\n";
     cout << "*********************************\n";
     cout << "Please enter your information!\n";
