@@ -9,8 +9,7 @@
 class InputValidator {
 public:
     InputValidator() = delete; // Khóa việc tạo instance vì class này chỉ cung cấp hàm Static tiện ích
-    bool askToReenter();
-    
+      
     /**
      * @brief Ràng buộc dữ liệu đáp án nhập vào từ người dùng (Chỉ nhận ký tự đáp án hợp lệ hoặc 'S' để bỏ qua).
      * @param optionCount Số lượng phương án lựa chọn tối đa của câu hỏi (Ví dụ: 4 tương ứng A, B, C, D).
@@ -72,17 +71,17 @@ if (isAnswerValid) {
             confirm = static_cast<char>(std::toupper(confirm));
 
             if (confirm == 'Y') {
-                break; // Nhập lại 
+                break; // Thoát vòng lặp hỏi để tiếp tục vòng lặp lớn (nhập lại)
             }
             if (confirm == 'N') {
-                return ch; // Không chọn lại và trả đáp án
+                return ch; // Không chọn lại -> Trả về đáp án và kết thúc câu hỏi
             }
         }
         else {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
-        std::cout << "Invalid selection! Please enter only Y (Yes) or N (No).\n";
+        std::cout << "Invalid selecion! Please select only Y (Yes) or N (No).\n";
     }
 
     // Nếu thoát ra bằng lệnh 'break' (chọn Y), câu lệnh continue này 
@@ -90,7 +89,6 @@ if (isAnswerValid) {
     continue;
 }
         }
-
         std::cout << "Invalid choice! Please enter a valid character.\n";
     }
 }
