@@ -65,3 +65,24 @@ bool InputValidator::validateQuestionIndex(int choiceIndex, int totalQuestions)
 {
     return choiceIndex >= 1 && choiceIndex <= totalQuestions;
 }
+
+//Cài hàm hỏi nhập lại
+bool InputValidator::askToReenter()
+{
+    char choice;
+    while (true) {
+        std::cout << "Do you want to re-enter the answer? (Y/N): ";
+        if (std::cin >> choice) {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Xóa bộ đệm thừa
+
+            choice = static_cast<char>(std::toupper(choice));
+            if (choice == 'Y') return true;  // Đồng ý nhập lại
+            if (choice == 'N') return false; // Không nhập lại
+        }
+        else {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        std::cout << "Invalid selection! Please enter only Y (Yes) hoac N (No).\n";
+    }
+}
