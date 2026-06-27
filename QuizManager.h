@@ -104,7 +104,7 @@ bool QuizManager::loadQuestionFromFile(const string& filename)
 
     // BƯỚC 2: Hiển thị Menu chọn môn học trực quan cho người dùng
     cout << "\n======================================================================\n";
-    cout << "                           \nSUBJECT LIST \n";
+    cout << "\n|                           SUBJECT LIST                             |\n";
     cout << "\n======================================================================\n";
     cout << "\n";
     for (size_t i = 0; i < subjects.size(); i++) {
@@ -215,11 +215,9 @@ void QuizManager::startExam() {
     // Vòng lặp hiển thị và lấy đáp án cho từng câu hỏi
     for (int i = 0; i < totalQuestions; i++)
     {
-        system("cls");
-
         cout << "=========================================================\n";
-        cout << "Question " << i + 1 << " / " << totalQuestions << endl;
-        cout << "Subject : " << currentSubject << endl;
+        cout << "| Question " << i + 1 << " / " << totalQuestions <<"    |"<< endl;
+        cout << "| Subject : " << currentSubject << "                    |"<< endl;
         cout << "=========================================================\n";
 
         questions[i]->displayQuestion();
