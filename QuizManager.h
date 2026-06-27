@@ -103,9 +103,9 @@ bool QuizManager::loadQuestionFromFile(const string& filename)
     }
 
     // BƯỚC 2: Hiển thị Menu chọn môn học trực quan cho người dùng
-    cout<<"\n======================================================================\n"
+    cout << "\n======================================================================\n";
     cout << "                           SUBJECT LIST \n";
-    cout << "\n======================================================================\n"
+    cout << "\n======================================================================\n";
     cout << "\n";
     for (size_t i = 0; i < subjects.size(); i++) {
         cout << " " << i + 1 << ". " << subjects[i] << "\n";
@@ -220,12 +220,12 @@ void QuizManager::startExam() {
         cout << "=========================================================\n";
         cout << "Question " << i + 1 << " / " << totalQuestions << endl;
         cout << "Subject : " << currentSubject << endl;
-        cout << "=========================================================\n\n";
+        cout << "=========================================================\n";
 
         questions[i]->displayQuestion();
 
         int optionCount = questions[i]->getOptionCount();
-        candidateAnswer[i] = InputValidator::getValidatedAnswer(optionCount);
+        candidateAnswers[i] = InputValidator::getValidatedAnswer(optionCount);
     }
 
     // Ghi nhận mốc thời gian kết thúc bài thi và tính toán thời gian làm bài thực tế
