@@ -5,27 +5,42 @@
 #include "Candidate.h"
 #include "Question.h"
 
+/**
+ * @brief Lớp chứa dữ liệu và tính toán Kết quả bài thi (Exam Report).
+ * Thực hiện chấm điểm dựa trên danh sách câu hỏi gốc và đáp án của thí sinh.
+ */
 class ExamResult 
 {
 private:
-    Candidate candidate;
-    std::string startTime;
-    int duration;
-    int correctCount;
-    double totalScore;
-    std::string subject;
-    int totalQuestions;
+    Candidate candidate;    // Đối tượng thông tin thí sinh tham gia thi
+    std::string startTime;  // Thời điểm bắt đầu làm bài (hh:mm:ss)
+    int duration;           // Thời điểm bắt đầu làm bài (hh:mm:ss)
+    int correctCount;       // Số lượng câu trả lời đúng
+    double totalScore;      // Điểm số quy đổi về thang điểm 10
+    std::string subject;    // Tên môn học thi hiện tại
+    int totalQuestions;     // Tổng số câu hỏi của bài thi
 
 public:
+    // Khởi tạo các giá trị mặc định ban đầu cho kết quả
     ExamResult();
 
+    // Các hàm Setter cập nhật thông tin bài thi từ tiến trình thi ngoài
     void setCandidate(const Candidate& c);
     void setStartTime(const std::string& time);
     void setDuration(int d);
     void setSubject(const std::string& s);
     void setTotalQuestions(int total);
 
+    /**
+     * @brief Thuật toán so sánh đáp án và tính toán điểm số.
+     * @param questions Danh sách con trỏ lưu câu hỏi gốc của đề thi.
+     * @param candidateAnswers Danh sách các ký tự lựa chọn của thí sinh.
+     */
     void calculateResult(const std::vector<Question*>& questions, const std::vector<char>& candidateAnswers);
+    
+    /**
+     * @brief Xuất báo cáo tổng quan kết quả cuối cùng theo biểu mẫu bảng căn lề cố định.
+     */
     void displayFinalReport() const;
 };
 
@@ -42,10 +57,12 @@ void ExamResult::calculateResult(const std::vector<Question*>& questions, const 
 {
     correctCount = 0;
     for (size_t i = 0; i < questions.size(); ++i) {
+        // Kiểm tra chỉ mục an toàn và so khớp ký tự đáp án (đã đồng bộ viết hoa)
         if (i < candidateAnswers.size() && candidateAnswers[i] == questions[i]->getCorrectAnswer()) {
             ++correctCount;
         }
     }
+    // Tính điểm dựa trên công thức tỉ lệ thuận hệ thang điểm 10
     if (totalQuestions > 0) {
         totalScore = static_cast<double>(correctCount) * 10.0 / totalQuestions;
     }

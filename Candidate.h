@@ -39,6 +39,10 @@ public:
      * @brief Quá tải toán tử nhập (>>). Tự động ép buộc người dùng nhập đúng định dạng.
      */
     friend std::istream& operator>>(std::istream& in, Candidate& c);
+
+    /**
+     * @brief Quá tải toán tử xuất (<<) để in nhanh thông tin thí sinh ra màn hình.
+     */
     friend std::ostream& operator<<(std::ostream& out, const Candidate& c);
 };
 
@@ -48,7 +52,7 @@ bool Candidate::isValidID(const std::string& id)
 {
     if (id.length() < 8 || id.length() > 12) return false;
     for (char c : id) {
-        if (!std::isalnum(c)) return false;
+        if (!std::isalnum(c)) return false; // Chỉ cho phép ký tự chữ hoặc số
     }
     return true;
 }
@@ -56,7 +60,7 @@ bool Candidate::isValidID(const std::string& id)
 bool Candidate::isValidName(const std::string& name)
 {
     for (char c : name) {
-        if (!std::isalpha(c) && c != ' ') return false;
+        if (!std::isalpha(c) && c != ' ') return false; // Không cho phép số hay ký tự đặc biệt
     }
     return true;
 }
@@ -66,15 +70,17 @@ std::string Candidate::getName() const { return name; }
 
 std::istream& operator>>(std::istream& in, Candidate& c) 
 {
+    // Vòng lặp kiểm tra điều kiện mã sinh viên
     do {
         std::cout << "Enter student ID number (8-12 alphanumeric characters): ";
-        in >> std::ws;
+        in >> std::ws; // Xóa khoảng trắng và ký tự xuống dòng còn sót trong bộ đệm
         std::getline(in, c.id);
         if (!c.isValidID(c.id)) {
             std::cout << "Invalid student ID! Please try again.\n";
         }
     } while (!c.isValidID(c.id));
 
+    // Vòng lặp kiểm tra điều kiện họ tên
     do {
         std::cout << "Enter full name (letters only): ";
         std::getline(in, c.name);
