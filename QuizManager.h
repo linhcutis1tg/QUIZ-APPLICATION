@@ -63,12 +63,11 @@ QuizManager::~QuizManager() {
 bool QuizManager::loadQuestionFromFile(const string& filename) 
 {
     // Hiển thị màn hình chào mừng ứng dụng và lấy thông tin thí sinh đầu vào
-    cout << "=========================================================\n";
-    cout << "                 QUIZ EXAM SYSTEM\n";
-    cout << "=========================================================\n";
-    cout << " Date : " << TimeService::getCurrentDate() << endl;
-    cout << " Time : " << TimeService::getCurrentTime() << endl;
-    cout << "=========================================================\n\n";
+    cout << "======================================================================\n";
+    cout << "                           QUIZ EXAM SYSTEM\n";
+    cout << "======================================================================\n";
+    cout << " Date : " << TimeService::getCurrentDate() << "                               " << " Time : " << TimeService::getCurrentTime() << endl;
+    cout << "======================================================================\n\n";
     cout << "Please enter your information:\n";
     cin >> currentCandidate;
 
@@ -104,11 +103,15 @@ bool QuizManager::loadQuestionFromFile(const string& filename)
     }
 
     // BƯỚC 2: Hiển thị Menu chọn môn học trực quan cho người dùng
-    std::cout << "\n================ SUBJECT LIST ================\n";
+    cout<<"\n======================================================================\n"
+    cout << "                           SUBJECT LIST \n";
+    cout << "\n======================================================================\n"
+    cout << "\n";
     for (size_t i = 0; i < subjects.size(); i++) {
         cout << " " << i + 1 << ". " << subjects[i] << "\n";
     }
-    cout << "================================================\n";
+    cout << "\n";
+    cout << "----------------------------------------------------------------------\n";
 
     int choice;
     while (true) {
@@ -212,18 +215,17 @@ void QuizManager::startExam() {
     // Vòng lặp hiển thị và lấy đáp án cho từng câu hỏi
     for (int i = 0; i < totalQuestions; i++)
     {
+        system("cls");
+
+        cout << "=========================================================\n";
+        cout << "Question " << i + 1 << " / " << totalQuestions << endl;
+        cout << "Subject : " << currentSubject << endl;
+        cout << "=========================================================\n\n";
+
         questions[i]->displayQuestion();
 
         int optionCount = questions[i]->getOptionCount();
-
-        candidateAnswers[i] = InputValidator::getValidatedAnswer(optionCount);
-
-        while (InputValidator::askToReenter())
-        {
-            cout << "Enter new answer: ";
-            candidateAnswers[i] =
-                InputValidator::getValidatedAnswer(optionCount);
-        }
+        candidateAnswer[i] = InputValidator::getValidatedAnswer(optionCount);
     }
 
     // Ghi nhận mốc thời gian kết thúc bài thi và tính toán thời gian làm bài thực tế
