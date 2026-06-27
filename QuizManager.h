@@ -64,7 +64,7 @@ bool QuizManager::loadQuestionFromFile(const string& filename)
 {
     // Hiển thị màn hình chào mừng ứng dụng và lấy thông tin thí sinh đầu vào
     cout << "======================================================================\n";
-    cout << "                           QUIZ EXAM SYSTEM\n";
+    cout << "|                           QUIZ EXAM SYSTEM                         |\n";
     cout << "======================================================================\n";
     cout << " Date : " << TimeService::getCurrentDate() << "                               " << " Time : " << TimeService::getCurrentTime() << endl;
     cout << "======================================================================\n\n";
