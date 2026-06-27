@@ -43,6 +43,7 @@ bool QuizManager::loadQuestionFromFile(const std::string& filename) {
     std::cout << "*************************************************\n";
     std::cout << "* QUIZ PROGRAM                  *\n";
     std::cout << "* Date: " << TimeService::getCurrentDate() << "                             *\n";
+    std::cout << "* Time: " << TimeService::getCurrentTime() << "                              *\n";
     std::cout << "*************************************************\n";
     std::cout << "Please enter your information:\n";
     std::cin >> currentCandidate;
@@ -160,6 +161,9 @@ bool QuizManager::loadQuestionFromFile(const std::string& filename) {
     
     totalQuestions = static_cast<int>(questions.size());
     candidateAnswers.assign(totalQuestions, 'S'); 
+    std::cout << "You chose: " <<currentSubject << std::endl;
+    std::cout << "Total questions: " << totalQuestions << std::endl;
+    
     return totalQuestions > 0;
 }
 
@@ -185,7 +189,8 @@ void QuizManager::startExam() {
     finalResult.setSubject(currentSubject);          
     finalResult.setTotalQuestions(totalQuestions);
     finalResult.calculateResult(questions, candidateAnswers);
-
+    finalResult.setSubject(currentSubject);          
+    finalResult.setTotalQuestions(totalQuestions);  
     std::cout << "\nYou have finished your exam in " << duration << " seconds.\n";
     reviewAndModifyAnswer();
 }
