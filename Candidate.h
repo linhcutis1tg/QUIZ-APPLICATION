@@ -81,7 +81,7 @@ istream& operator>>(istream& in, Candidate& c)
 
     // Vòng lặp kiểm tra điều kiện họ tên
     do {
-        cout << " Full Name  :\n";
+        cout << " Full Name  :";
         getline(in, c.name);
         if (!c.isValidName(c.name)) {
             cout << "Invalid full name! Please try again.\n";
