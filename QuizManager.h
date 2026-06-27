@@ -104,7 +104,7 @@ bool QuizManager::loadQuestionFromFile(const string& filename)
 
     // BƯỚC 2: Hiển thị Menu chọn môn học trực quan cho người dùng
     cout << "\n======================================================================\n";
-    cout << "                           SUBJECT LIST \n";
+    cout << "                           \nSUBJECT LIST \n";
     cout << "\n======================================================================\n";
     cout << "\n";
     for (size_t i = 0; i < subjects.size(); i++) {
