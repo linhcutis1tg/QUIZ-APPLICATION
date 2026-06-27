@@ -71,9 +71,9 @@ void ExamResult::calculateResult(const vector<Question*>& questions, const vecto
 void ExamResult::displayFinalReport() const 
 {
     std::cout << "\n";
-    std::cout << "╔══════════════════════════════════════════════════════════════╗\n";
-    std::cout << "║                          EXAM RESULT                         ║\n";
-    std::cout << "╠══════════════════════════════════════════════════════════════╣\n";
+    std::cout << "================================================================\n";
+    std::cout << "                            EXAM RESULT                         \n";
+    std::cout << "================================================================\n";
 
     std::cout << "Student ID      : " << candidate.getId() << std::endl;
     std::cout << "Full Name       : " << candidate.getName() << std::endl;
@@ -90,5 +90,5 @@ void ExamResult::displayFinalReport() const
     std::cout << "Score           : "
         << totalScore << "/10" << std::endl;
 
-    std::cout << "╚══════════════════════════════════════════════════════════════╝\n";
+    std::cout << "================================================================\n";
 }

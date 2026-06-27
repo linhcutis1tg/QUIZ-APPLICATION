@@ -62,11 +62,11 @@ QuizManager::~QuizManager() {
 bool QuizManager::loadQuestionFromFile(const string& filename) 
 {
     // Hiển thị màn hình chào mừng ứng dụng và lấy thông tin thí sinh đầu vào
-    cout << "╔══════════════════════════════════════════════════════════════╗\n";
-    cout << "║                     🎓 QUIZ EXAM SYSTEM                      ║\n";
-    cout << "╠══════════════════════════════════════════════════════════════╣\n";
-    cout << "║ 📅 Date : " << TimeService::getCurrentDate() <<"    🕒Time : " << TimeService::getCurrentTime() <<"               ║"<< endl;
-    cout << "╚══════════════════════════════════════════════════════════════╝\n";
+    cout << "================================================================\n";
+    cout << "                      QUIZ EXAM SYSTEM                          \n";
+    cout << "================================================================\n";
+    cout << "  Date : " << TimeService::getCurrentDate() <<"       Time : " << TimeService::getCurrentTime() << endl;
+    cout << "================================================================\n";
     cin >> currentCandidate;
 
     // Dọn dẹp dữ liệu cũ (nếu có) trước khi tải bài thi mới
@@ -101,11 +101,11 @@ bool QuizManager::loadQuestionFromFile(const string& filename)
     }
 
     // BƯỚC 2: Hiển thị Menu chọn môn học trực quan cho người dùng
-    cout << "┌──────────── SUBJECT LIST ────────────┐";
+    cout << "------------SUBJECT LIST ------------";
     for (size_t i = 0; i < subjects.size(); i++) {
-        cout << "📘" << i + 1 << ". " << subjects[i] << "\n";
+        cout << " " << i + 1 << ". " << subjects[i] << "\n";
     }
-    cout << "\n└──────────────────────────────────────┘\n";
+    cout << "\n-----------------------------------\n";
 
     int choice;
     while (true) {
@@ -209,10 +209,10 @@ void QuizManager::startExam() {
     // Vòng lặp hiển thị và lấy đáp án cho từng câu hỏi
     for (int i = 0; i < totalQuestions; i++)
     {
-        cout << "╔══════════════════════════════════════════════════════════════╗\n";
+        cout << "----------------------------------------------------------------\n";
         cout << "  Question " << i + 1 << " / " << totalQuestions <<endl;
         cout << "  Subject : " << currentSubject << endl;
-        cout << "╚══════════════════════════════════════════════════════════════╝\n";
+        cout << "----------------------------------------------------------------\n";
 
         questions[i]->displayQuestion();
 
@@ -241,7 +241,7 @@ void QuizManager::reviewAndModifyAnswer() {
     while (true) {
         char choice;
         choice = static_cast<char>(toupper(choice));
-        cout << "\n════════════════════════════════════════════════════\n";
+        cout << "\n----------------------------------------------------\n";
         cout << "Do you want to review or change any answers? (Y/N): ";
         cin >> choice;
         choice = static_cast<char>(toupper(choice));
