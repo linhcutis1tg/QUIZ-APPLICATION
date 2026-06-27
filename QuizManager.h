@@ -65,7 +65,7 @@ bool QuizManager::loadQuestionFromFile(const string& filename)
     cout << "================================================================\n";
     cout << "                      QUIZ EXAM SYSTEM                          \n";
     cout << "================================================================\n";
-    cout << "  Date : " << TimeService::getCurrentDate() <<"       Time : " << TimeService::getCurrentTime() << endl;
+    cout << " Date : " << TimeService::getCurrentDate() <<"                Time : " << TimeService::getCurrentTime() << endl;
     cout << "================================================================\n";
     cin >> currentCandidate;
 
@@ -101,7 +101,7 @@ bool QuizManager::loadQuestionFromFile(const string& filename)
     }
 
     // BƯỚC 2: Hiển thị Menu chọn môn học trực quan cho người dùng
-    cout << "------------SUBJECT LIST ------------";
+    cout << "\n-----------SUBJECT LIST -----------\n";
     for (size_t i = 0; i < subjects.size(); i++) {
         cout << " " << i + 1 << ". " << subjects[i] << "\n";
     }
@@ -192,14 +192,14 @@ bool QuizManager::loadQuestionFromFile(const string& filename)
     
     totalQuestions = static_cast<int>(questions.size());
     candidateAnswers.assign(totalQuestions, 'S'); // Khởi tạo mặc định ban đầu đáp án của thí sinh đều là 'S' (Skip)
-    cout << "You chose: " <<currentSubject << endl;
+    cout << "\nYou chose: " <<currentSubject << endl;
     cout << "Total questions: " << totalQuestions << endl;
     
     return totalQuestions > 0;
 }
 
 void QuizManager::startExam() {
-    cout << "\nPress Enter to start the exam...";
+    cout << "\nPress Enter to start the exam...\n";
     cin.get();
 
     // Ghi nhận mốc thời gian hệ thống bắt đầu làm bài
