@@ -9,6 +9,7 @@
 class InputValidator {
 public:
     InputValidator() = delete; // Khóa việc tạo instance vì class này chỉ cung cấp hàm Static tiện ích
+    bool askToReenter();
     
     /**
      * @brief Ràng buộc dữ liệu đáp án nhập vào từ người dùng (Chỉ nhận ký tự đáp án hợp lệ hoặc 'S' để bỏ qua).
@@ -64,4 +65,25 @@ char InputValidator::getValidatedAnswer(int optionCount)
 bool InputValidator::validateQuestionIndex(int choiceIndex, int totalQuestions) 
 {
     return choiceIndex >= 1 && choiceIndex <= totalQuestions;
+}
+
+//Cài hàm hỏi nhập lại
+bool InputValidator::askToReenter()
+{
+    char choice;
+    while (true) {
+        std::cout << "Do you want to re-enter the answer? (Y/N): ";
+        if (std::cin >> choice) {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Xóa bộ đệm thừa
+
+            choice = static_cast<char>(std::toupper(choice));
+            if (choice == 'Y') return true;  // Đồng ý nhập lại
+            if (choice == 'N') return false; // Không nhập lại
+        }
+        else {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        std::cout << "Invalid selection! Please enter only Y (Yes) hoac N (No).\n";
+    }
 }
