@@ -14,8 +14,8 @@ int main() {
         // Kích hoạt luồng làm bài, chọn môn học, sửa câu hỏi và chấm điểm
         manager.startExam();
     } else {
-        cout << "[Lỗi] Không thể mở hoặc đọc dữ liệu từ file 'input.txt'!" << endl;
-        cout << "Vui lòng kiểm tra lại xem file 'input.txt' đã nằm cùng thư mục với file chạy chưa." << endl;
+        cout << "[Error] Unable to open or read data from file 'input.txt'!" << endl;
+        cout << "Please double-check that the 'input.txt' file is located in the same directory as the executable file." << endl;
     }
 
     cout << "\nPress any key to continue . . . ";
