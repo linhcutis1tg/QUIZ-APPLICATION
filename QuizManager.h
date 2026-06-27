@@ -105,7 +105,7 @@ bool QuizManager::loadQuestionFromFile(const string& filename)
     for (size_t i = 0; i < subjects.size(); i++) {
         cout << " " << i + 1 << ". " << subjects[i] << "\n";
     }
-    cout << "\n-----------------------------------\n";
+    cout << "-----------------------------------\n";
 
     int choice;
     while (true) {
@@ -199,7 +199,7 @@ bool QuizManager::loadQuestionFromFile(const string& filename)
 }
 
 void QuizManager::startExam() {
-    cout << "\nPress Enter to start the exam...\n";
+    cout << "\nPress Enter to start the exam...";
     cin.get();
 
     // Ghi nhận mốc thời gian hệ thống bắt đầu làm bài
@@ -209,10 +209,10 @@ void QuizManager::startExam() {
     // Vòng lặp hiển thị và lấy đáp án cho từng câu hỏi
     for (int i = 0; i < totalQuestions; i++)
     {
-        cout << "----------------------------------------------------------------\n";
+        cout << "\n----------------------------------------------------\n";
         cout << "  Question " << i + 1 << " / " << totalQuestions <<endl;
         cout << "  Subject : " << currentSubject << endl;
-        cout << "----------------------------------------------------------------\n";
+        cout << "----------------------------------------------------\n";
 
         questions[i]->displayQuestion();
 

@@ -72,7 +72,7 @@ void ExamResult::displayFinalReport() const
 {
     std::cout << "\n";
     std::cout << "====================================\n";
-    std::cout << "      EXAM RESULT                         \n";
+    std::cout << "             EXAM RESULT            \n";
     std::cout << "====================================\n";
 
     std::cout << "Student ID      : " << candidate.getId() << std::endl;
