@@ -60,10 +60,13 @@ MultipleChoiceQuestion::MultipleChoiceQuestion(int id, const std::string& conten
 
 void MultipleChoiceQuestion::displayQuestion() const 
 {
+    std::cout << "\n--------------------------------------------------\n";
     std::cout << "\nQuestion " << id << ": " << content << "\n";
+    std::cout << "\n--------------------------------------------------\n";
     char optionName = 'A'; // Ký tự đại diện bắt đầu từ 'A'
     for (const std::string& option : options) {
         std::cout << "  " << optionName << ". " << option << "\n";
         ++optionName; // Tăng dần ký tự lên 'B', 'C', 'D'...
     }
+    std::cout << "--------------------------------------------------\n";
 }

@@ -61,11 +61,12 @@ QuizManager::~QuizManager() {
 
 bool QuizManager::loadQuestionFromFile(const std::string& filename) {
     // Hiển thị màn hình chào mừng ứng dụng và lấy thông tin thí sinh đầu vào
-    std::cout << "*************************************************\n";
-    std::cout << "* QUIZ PROGRAM                  *\n";
-    std::cout << "* Date: " << TimeService::getCurrentDate() << "                             *\n";
-    std::cout << "* Time: " << TimeService::getCurrentTime() << "                              *\n";
-    std::cout << "*************************************************\n";
+    std::cout << "=========================================================\n";
+    std::cout << "                 QUIZ EXAM SYSTEM\n";
+    std::cout << "=========================================================\n";
+    std::cout << " Date : " << TimeService::getCurrentDate() << endl;
+    std::cout << " Time : " << TimeService::getCurrentTime() << endl;
+    std::cout << "=========================================================\n\n";
     std::cout << "Please enter your information:\n";
     std::cin >> currentCandidate;
 
@@ -101,7 +102,7 @@ bool QuizManager::loadQuestionFromFile(const std::string& filename) {
     }
 
     // BƯỚC 2: Hiển thị Menu chọn môn học trực quan cho người dùng
-    std::cout << "\n================ CHOOSE SUBJECT ================\n";
+    std::cout << "\n================ SUBJECT LIST ================\n";
     for (size_t i = 0; i < subjects.size(); i++) {
         std::cout << " " << i + 1 << ". " << subjects[i] << "\n";
     }
@@ -233,6 +234,7 @@ void QuizManager::startExam() {
 void QuizManager::reviewAndModifyAnswer() {
     while (true) {
         char choice;
+        std::cout << "\n==================================================\n";
         std::cout << "Do you want to review or change any answers? (Y/N): ";
         std::cin >> choice;
         choice = static_cast<char>(std::toupper(choice));
