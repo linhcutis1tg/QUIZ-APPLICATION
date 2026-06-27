@@ -94,6 +94,7 @@ std::istream& operator>>(std::istream& in, Candidate& c)
 
 std::ostream& operator<<(std::ostream& out, const Candidate& c) 
 {
+    out << "------------- Candidate Information -------------\n";
     out << "Student ID: " << c.id << "\nFull name: " << c.name << "\n";
     return out;
 }
