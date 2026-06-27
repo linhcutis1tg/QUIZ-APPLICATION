@@ -16,13 +16,25 @@ private:
     int duration;          // Thời gian làm bài (giây)
     int correctCount;      // Số câu trả lời đúng
     double totalScore;     // Tổng điểm
+    string subject;        // Tên môn
+    int totalQuestions;    // Tổng số câu của môn
 
 public:
-    ExamResult() : startTime(""), duration(0), correctCount(0), totalScore(0.0) {}
+    ExamResult()
+        : startTime(""),
+        duration(0),
+        correctCount(0),
+        totalScore(0.0),
+        subject(""),
+        totalQuestions(0)
+    {
+    }
 
     void setCandidate(const Candidate& c) { candidate = c; }
     void setStartTime(const string& time) { startTime = time; }
     void setDuration(int d) { duration = d; }
+    void setSubject(const string& s) { subject = s; }
+    void setTotalQuestions(int total) { totalQuestions = total; }
 
     void calculateResult(const vector<Question*>& questions, const vector<char>& candidateAnswers)
     {
@@ -34,18 +46,19 @@ public:
                 ++correctCount;
             }
         }
-        totalScore = static_cast<double>(correctCount);
+
+        totalScore = (double)correctCount * 10 / totalQuestions;
     }
 
     void displayFinalReport() const
     {
-        cout << "\n========== KET QUA BAI THI ==========" << endl;
-        cout << candidate.getId() << " - " << candidate.getName() << endl;
+        cout << "\n========== KET QUA BAI THI ==========\n";
+        cout << "Ma sinh vien      : " << candidate.getId() << endl;
+        cout << "Ho ten            : " << candidate.getName() << endl;
+        cout << "Mon thi           : " << subject << endl;
         cout << "Thoi gian bat dau : " << startTime << endl;
         cout << "Thoi gian lam bai : " << duration << " giay" << endl;
-        //// chủ đề 1 2 3 
-        // cin 
-        cout << "So cau dung       : " << correctCount << endl; // số câu đùng/tổng số câu hỏi = n của chủ đề 
-        cout << "Tong diem         : " << totalScore << endl;
+        cout << "So cau dung       : " << correctCount << "/" << totalQuestions << endl;
+        cout << "Tong diem         : " << totalScore << "/10" << endl;
     }
 };
