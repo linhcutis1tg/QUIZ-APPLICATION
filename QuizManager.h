@@ -98,7 +98,7 @@ QuizManager::~QuizManager()
         if(!getline(file, optLine)) break; 
         stringstream ss2(optLine);
         int count;
-        ss2 >> count; // Đọc ký tự đáp án đúng
+        ss2 >> count; // Đọc số lượng các lựa chọn
 
         vector<string> options;
         for (int j = 0; j < count; j++) {
