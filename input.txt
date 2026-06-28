@@ -2,26 +2,98 @@ Mon Toan
 Mon Anh 
 Mon Van
 1. Mon Toan
-3
-1 1 + 1 = ?
+10
+1 Kết quả của phép tính $1 + 1$ bằng bao nhiêu?
 4 4 5 2 3 
-c
-2 10 - 6 = ?
-4 8 4 7 2
-b
-3 x + 9 = 20 -> x = ?
-6 9 2 10 11 34 2 
-d
+C
+2 Kết quả của phép tính 5 x 2 bằng bao nhiêu?
+4 20 15 22 10
+D
+3 Trong các số sau, số nào là số chẵn?
+4 1 9 3 4 
+D
+4 Số nào sau đây lớn nhất?
+3 9 3 0
+A
+5 Một hình tam giác có bao nhiêu cạnh?
+5 2 3 4 5 6
+B
+6 Kết quả của phép trừ $10 - 3$ là bao nhiêu?
+4 8 6 4 7
+D
+7 Hình nào sau đây không có góc?
+4 Hình_vuông Hình_tròn Hình_tam_giác Hình_chũ_nhật
+B
+8 Phép tính nào dưới đây có kết quả bằng 0?
+4 5+5 5-5 5+0 5x5
+B
+9 Một tuần có bao nhiêu ngày?
+4 14 9 8 7
+D
+10 Một giờ đồng hồ có bao nhiêu phút?
+4 60 30 120 42
+A
 2. Mon Anh 
-2
-1 Hello nghia la gi?
-4 Chao Xin_chao Hi Hello 
-Xin_chao
-2 what your ____?
-4 Name old year name 
-name
+10
+1 Từ nào sau đây có nghĩa là "màu đỏ"?
+4 Red Blue Green Yellow 
+A
+2 Từ "Hello" dùng để làm gì?
+4 Tạm_biệt Cảm_ơn Xin_lỗi Chào_hỏi
+d
+3 Con vật nào sau đây được gọi là "Cat"?
+4 Con_chó Con_mèo Con_chim Con_cá
+B
+4 Điền đại từ phù hợp vào chỗ trống: "___ am a student."
+4 She They He I
+D
+5 Số "One" tương ứng với số mấy?
+4 2 3 4 1
+D
+6 Từ nào sau đây chỉ bộ phận "Đôi mắt"?
+4 Nose Eyes Ears Mouth
+B 
+7 Từ nào dưới đây là từ trái nghĩa của "Hot" (nóng)?
+4 Dry Wet Cold Warm
+C 
+8 Trái cây nào sau đây được gọi là "Apple"?
+4 Quả_xoài Quả_cam Quả_táo Quả_chuối
+C
+9 Từ "Book" có nghĩa là gì?
+4 Quyển_sách Cây_bút Cái_cặp Cái_bàn
+A
+10 Khi muốn nói "Cảm ơn", bạn dùng câu nào?
+4 No_problem Thank_you Goodbye Sorry
+B
 3. Mon Van
-1
-1 "Thuy Kieu" la tac pham cua ai?
-4 Nam_Cao Tuan_Hung Nguyen_Du Thanh_Hung
-Nguyen_Du
+10
+1 Điền từ còn thiếu vào câu ca dao sau: "Bầu ơi thương lấy bí cùng, Tuy rằng khác... nhưng chung một giàn."
+4 nhà nơi loài giống
+D
+2 Ai là tác giả của bài thơ "Lượm" kể về chú bé liên lạc dũng cảm?
+4 Xuân_Diệu Tố_Hữu Trần_Đăng_Khoa Đồng_Đức_Bốn
+B 
+3 Điền từ thích hợp vào chỗ trống: "Nghĩa mẹ như nước trong... chảy ra".
+4 biển nguồn sông suối
+B 
+4 Nhân vật Thạch Sanh trong truyện cổ tích cùng tên nổi tiếng với vũ khí nào?
+4 Gậy_tre Búa_rìu Cây_cung_thần Thanh_kiếm_báu
+B 
+5 Truyện dân gian nào giải thích về nguồn gốc các hiện tượng lũ lụt hằng năm ở miền Bắc nước ta?
+4 Sự_tích_Hồ_Gươm Thạch_Sanh Sơn_Tinh-Thuỷ_Tinh Thánh_Gióng
+C 
+6 Từ nào sau đây viết đúng chính tả?
+4 Suất_sắc Xuất_sấc Xuất_sắc Xúat_sắc
+C 
+7 Trong câu "Mèo con đang ngủ gật dưới hiên nhà.", từ nào là động từ?
+4 Mèo_con Dưới Hiên_nhà Ngủ_gật
+D 
+8 Câu thơ "Trẻ em như búp trên cành" sử dụng biện pháp nghệ thuật nào?
+4 Nhân_hoá Hoán_dụ Ẩn_dụ So_sánh
+D 
+9 Bài thơ "Bánh trôi nước" là tác phẩm nổi tiếng của nhà thơ nào?
+4 Hồ_Xuân_Hương Bà_Huyện_Thanh_Quan Đoàn_Thị_Điểm Xuân_Quỳnh
+A 
+10 Từ nào sau đây trái nghĩa với từ "chăm chỉ"?
+4 Ngoan_ngoãn Hiền_lành Cần_cù Lười_biếng
+D
