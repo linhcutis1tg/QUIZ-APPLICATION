@@ -18,7 +18,7 @@ A
 5 Một hình tam giác có bao nhiêu cạnh?
 5 2 3 4 5 6
 B
-6 Kết quả của phép trừ $10 - 3$ là bao nhiêu?
+6 Kết quả của phép trừ 10 - 3 là bao nhiêu?
 4 8 6 4 7
 D
 7 Hình nào sau đây không có góc?
