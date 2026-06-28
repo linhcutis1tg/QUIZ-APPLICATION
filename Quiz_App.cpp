@@ -1,14 +1,12 @@
 #include <iostream>
-#include <Windows.h>
+#include <Windows.h> // 1. Thêm thư viện này để can thiệp vào hệ thống Windows
 #include "QuizManager.h"
 
 using namespace std;
 
-// cout == tiếng Anh
-
 int main() {
-
-    SetConsoleOutputCP(65001);
+    // Ép Terminal hiển thị chữ có dấu (UTF-8)
+    SetConsoleOutputCP(65001);  
     SetConsoleCP(65001);
 
     QuizManager manager;
