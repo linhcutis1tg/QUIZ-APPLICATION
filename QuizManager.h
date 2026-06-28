@@ -48,7 +48,9 @@ public:
     /**
      * @brief Cho phép thí sinh xem lại đề thi, sửa đáp án tùy ý trước khi xuất kết quả cuối cùng.
      */
-    void reviewAndModifyAnswer();
+    void showMenu(int currentQuestion);
+    void changeAnswer(int currentQuestion);
+    void showAnswerSheet(int currentQuestion);
 };
 
 QuizManager::QuizManager() : totalQuestions(0) {}
@@ -218,6 +220,7 @@ void QuizManager::startExam() {
 
         int optionCount = questions[i]->getOptionCount();
         candidateAnswers[i] = InputValidator::getValidatedAnswer(optionCount);
+        showMenu(i);
     }
 
     // Ghi nhận mốc thời gian kết thúc bài thi và tính toán thời gian làm bài thực tế
@@ -230,65 +233,84 @@ void QuizManager::startExam() {
     finalResult.setDuration(duration);
     finalResult.setSubject(currentSubject);          
     finalResult.setTotalQuestions(totalQuestions);
-    finalResult.calculateResult(questions, candidateAnswers);
-    finalResult.setSubject(currentSubject);          
+    finalResult.calculateResult(questions, candidateAnswers);         
     finalResult.setTotalQuestions(totalQuestions);  
     cout << "\nYou have finished your exam in " << duration << " seconds.\n";
-    reviewAndModifyAnswer();    // Chuyển tiếp sang màn hình hỗ trợ kiểm tra/sửa đổi đáp án bài làm
+    finalResult.displayFinalReport();
 }
 
-void QuizManager::reviewAndModifyAnswer() {
-    while (true) {
-        char choice;
-        choice = static_cast<char>(toupper(choice));
-        cout << "\n----------------------------------------------------\n";
-        cout << "Do you want to review or change any answers? (Y/N): ";
+void QuizManager::showMenu(int currentQuestion)
+{
+    while (true)
+    {
+        cout << "\n============================================\n";
+        cout << "                MENU\n";
+        cout << "============================================\n";
+        cout << "1. Next Question\n";
+        cout << "2. Change Previous Answers\n";
+        cout << "3. View Answer Sheet\n";
+        cout << "4. Finish Exam\n";
+        cout << "============================================\n";
+        cout << "Choose: ";
+
+        int choice;
         cin >> choice;
-        choice = static_cast<char>(toupper(choice));
 
-        if (choice != 'Y') break;   // Nếu người dùng không nhập 'Y', kết thúc vòng lặp để nộp bài luôn
+        switch (choice)
+        {
+        case 1:
+            return;
 
-        while (true) {
-            int choiceIndex = 0;
-            cout << "Enter the question number you want to change (1-" << totalQuestions << "): ";
-            while (!(cin >> choiceIndex)) {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Please enter a valid integer: ";
-            }
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-            // Kiểm tra số thứ tự nhập vào có nằm trong phạm vi mảng câu hỏi đề thi không
-            if (!InputValidator::validateQuestionIndex(choiceIndex, totalQuestions)) {
-                cout << "Question number out of range! Please try again.\n";
-                continue;
-            }
-
-            int index = choiceIndex - 1;    // Quy đổi về chỉ mục mảng (bắt đầu từ 0)
-            cout << "\n--- Reviewing Question " << choiceIndex << " ---";
-            questions[index]->displayQuestion();
-
-            cout << "Current saved answer: " << candidateAnswers[index] << "\n";
-
-            if (InputValidator::askToReenter())
-            {
-                cout << "Enter new choice: ";
-                candidateAnswers[index] =
-                    InputValidator::getValidatedAnswer(
-                        questions[index]->getOptionCount());
-
-                cout << "Answer updated successfully!\n";
-            }
-            else
-            {
-                cout << "Answer unchanged.\n";
-            }
-            cout << "Answer for question " << choiceIndex << " updated successfully!\n\n";
+        case 2:
+            changeAnswer(currentQuestion);
             break;
+
+        case 3:
+            showAnswerSheet(currentQuestion);
+            break;
+
+        case 4:
+            if (currentQuestion == totalQuestions - 1)
+                return;
+
+            cout << "You haven't finished all questions!\n";
+            break;
+
+        default:
+            cout << "Invalid choice!\n";
         }
     }
+}
+
+void QuizManager::changeAnswer(int currentQuestion)
+{
+    int index;
+
+    cout << "\nEnter question number (1-" << currentQuestion + 1 << "): ";
+    cin >> index;
+
+    if (index < 1 || index > currentQuestion + 1)
+    {
+        cout << "Invalid question!\n";
+        return;
+    }
+
+    questions[index - 1]->displayQuestion();
+
+    cout << "Current answer: " << candidateAnswers[index - 1] << endl;
+
+    candidateAnswers[index - 1] = InputValidator::getValidatedAnswer(questions[index - 1]->getOptionCount());
+
+    cout << "Answer updated successfully!\n";
+}
     
-    // Tái tính toán lại điểm số cuối cùng sau khi đã điều chỉnh đáp án và in báo cáo kết quả ra màn hình
-    finalResult.calculateResult(questions, candidateAnswers);
-    finalResult.displayFinalReport();
+void QuizManager::showAnswerSheet(int currentQuestion)
+{
+    cout << "\n============= ANSWER SHEET =============\n";
+
+    for (int i = 0; i <= currentQuestion; i++)
+    {
+        cout << "Question " << i + 1 << " : " << candidateAnswers[i] << endl;
+    }
+    cout << "========================================\n";
 }
