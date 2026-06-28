@@ -1,9 +1,9 @@
-Mon Toan
-Mon Anh 
-Mon Van
-1. Mon Toan
+Môn Toán
+Môn Anh 
+Môn Văn
+1. Môn Toán
 10
-1 Kết quả của phép tính $1 + 1$ bằng bao nhiêu?
+1 Kết quả của phép tính 1 + 1 bằng bao nhiêu?
 4 4 5 2 3 
 C
 2 Kết quả của phép tính 5 x 2 bằng bao nhiêu?
@@ -33,7 +33,7 @@ D
 10 Một giờ đồng hồ có bao nhiêu phút?
 4 60 30 120 42
 A
-2. Mon Anh 
+2. Môn Anh
 10
 1 Từ nào sau đây có nghĩa là "màu đỏ"?
 4 Red Blue Green Yellow 
@@ -65,7 +65,7 @@ A
 10 Khi muốn nói "Cảm ơn", bạn dùng câu nào?
 4 No_problem Thank_you Goodbye Sorry
 B
-3. Mon Van
+3. Môn Văn
 10
 1 Điền từ còn thiếu vào câu ca dao sau: "Bầu ơi thương lấy bí cùng, Tuy rằng khác... nhưng chung một giàn."
 4 nhà nơi loài giống

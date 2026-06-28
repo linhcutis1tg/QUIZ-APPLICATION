@@ -1,4 +1,5 @@
 #include <iostream>
+#include <Windows.h>
 #include "QuizManager.h"
 
 using namespace std;
@@ -6,6 +7,9 @@ using namespace std;
 // cout == tiếng Anh
 
 int main() {
+
+    SetConsoleOutputCP(65001);
+    SetConsoleCP(65001);
 
     QuizManager manager;
 
