@@ -63,6 +63,7 @@ QuizManager::~QuizManager() {
 }
 bool QuizManager::loadQuestionFromFile(const string& filename) 
 {
+    system("cls");
     // Hiển thị màn hình chào mừng ứng dụng và lấy thông tin thí sinh đầu vào
     cout << "================================================================\n";
     cout << "                      QUIZ EXAM SYSTEM                          \n";
@@ -211,18 +212,98 @@ void QuizManager::startExam() {
     // Vòng lặp hiển thị và lấy đáp án cho từng câu hỏi
     for (int i = 0; i < totalQuestions; i++)
     {
+        system("cls");
         cout << "\n----------------------------------------------------\n";
-        cout << "  Question " << i + 1 << " / " << totalQuestions <<endl;
+        cout << "  Question " << i + 1 << " / " << totalQuestions << endl;
         cout << "  Subject : " << currentSubject << endl;
         cout << "----------------------------------------------------\n";
 
         questions[i]->displayQuestion();
 
         int optionCount = questions[i]->getOptionCount();
+
         candidateAnswers[i] = InputValidator::getValidatedAnswer(optionCount);
+
+        // Skip thì qua luôn câu tiếp
+        if (candidateAnswers[i] == 'S')
+        {
+            system("cls");
+            continue;
+        }
+
         showMenu(i);
     }
+    //============================
+    // Menu cuối trước khi nộp bài
+    //============================
 
+    while (true)
+    {
+        cout << "=====================================\n";
+        cout << "          EXAM FINISHED\n";
+        cout << "=====================================\n";
+        cout << "1. Submit Exam\n";
+        cout << "2. Change Answer\n";
+        cout << "3. View Answer Sheet\n";
+        cout << "=====================================\n";
+        cout << "Choose: ";
+
+        int choice;
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+        {
+            bool hasSkip = false;
+
+            for (int i = 0; i < totalQuestions; i++)
+            {
+                if (candidateAnswers[i] == 'S')
+                {
+                    hasSkip = true;
+                    break;
+                }
+            }
+
+            if (hasSkip)
+            {
+                cout << "\n=====================================\n";
+                cout << " You still have skipped questions!\n";
+                cout << " Please change all skipped answers\n";
+                cout << " before submitting the exam.\n";
+                cout << "=====================================\n";
+
+                cout << "Press Enter...";
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cin.get();
+
+                system("cls");
+                break;      // quay lại menu cuối
+            }
+
+            system("cls");
+            goto SUBMIT;
+        }
+
+        case 2:
+            changeAnswer(totalQuestions);
+            system("cls");
+            break;
+
+        case 3:
+            showAnswerSheet(totalQuestions);
+            cout << "\nPress Enter...";
+            cin.ignore();
+            cin.get();
+            system("cls");
+            break;
+
+        default:
+            cout << "Invalid choice!\n";
+        }
+    }
+    SUBMIT:
     // Ghi nhận mốc thời gian kết thúc bài thi và tính toán thời gian làm bài thực tế
     time_t endSecond = time(0);
     int duration = TimeService::calculateElapsedSeconds(startSecond, endSecond);
@@ -243,38 +324,44 @@ void QuizManager::showMenu(int currentQuestion)
 {
     while (true)
     {
-        cout << "\n============================================\n";
-        cout << "                MENU\n";
-        cout << "============================================\n";
-        cout << "1. Next Question\n";
-        cout << "2. Change Previous Answers\n";
-        cout << "3. View Answer Sheet\n";
-        cout << "4. Finish Exam\n";
-        cout << "============================================\n";
+        cout << "\n========================================\n";
+        cout << "1. Continue\n";
+        cout << "2. Change previous answer\n";
+        cout << "3. View answer sheet\n";
+        cout << "========================================\n";
         cout << "Choose: ";
 
         int choice;
-        cin >> choice;
+
+        if (!(cin >> choice))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            system("cls");
+            continue;
+        }
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         switch (choice)
         {
         case 1:
+            system("cls");
             return;
 
         case 2:
             changeAnswer(currentQuestion);
-            break;
+            system("cls");
+            continue;
 
         case 3:
             showAnswerSheet(currentQuestion);
-            break;
 
-        case 4:
-            if (currentQuestion == totalQuestions - 1)
-                return;
+            cout << "\nPress Enter to continue...";
+            cin.get();
 
-            cout << "You haven't finished all questions!\n";
-            break;
+            system("cls");
+            return;
 
         default:
             cout << "Invalid choice!\n";
@@ -285,32 +372,67 @@ void QuizManager::showMenu(int currentQuestion)
 void QuizManager::changeAnswer(int currentQuestion)
 {
     int index;
+    int maxQuestion;
 
-    cout << "\nEnter question number (1-" << currentQuestion + 1 << "): ";
-    cin >> index;
+    if (currentQuestion >= totalQuestions)
+        maxQuestion = totalQuestions;
+    else
+        maxQuestion = currentQuestion + 1;
 
-    if (index < 1 || index > currentQuestion + 1)
+    // Nhập số câu hỏi cần sửa
+    while (true)
     {
-        cout << "Invalid question!\n";
-        return;
+        cout << "\nEnter question number (1-" << maxQuestion << "): ";
+
+        if (!(cin >> index))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input! Please enter a number.\n";
+            continue;
+        }
+
+        if (index >= 1 && index <= maxQuestion)
+        {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            break;
+        }
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid question number! Please try again.\n";
     }
+
+    system("cls");
 
     questions[index - 1]->displayQuestion();
 
-    cout << "Current answer: " << candidateAnswers[index - 1] << endl;
+    cout << "\nCurrent answer: " << candidateAnswers[index - 1] << endl;
 
-    candidateAnswers[index - 1] = InputValidator::getValidatedAnswer(questions[index - 1]->getOptionCount());
+    candidateAnswers[index - 1] =
+        InputValidator::getValidatedAnswer(
+            questions[index - 1]->getOptionCount());
 
-    cout << "Answer updated successfully!\n";
+    cout << "\nAnswer updated successfully!";
+    cout << "\nPress Enter to continue...";
+    cin.get();
 }
-    
 void QuizManager::showAnswerSheet(int currentQuestion)
 {
     cout << "\n============= ANSWER SHEET =============\n";
 
-    for (int i = 0; i <= currentQuestion; i++)
+    int limit;
+
+    if (currentQuestion >= totalQuestions)
+        limit = totalQuestions;
+    else
+        limit = currentQuestion + 1;
+
+    for (int i = 0; i < limit; i++)
     {
-        cout << "Question " << i + 1 << " : " << candidateAnswers[i] << endl;
+        cout << "Question " << i + 1
+            << " : "
+            << candidateAnswers[i]
+            << endl;
     }
     cout << "========================================\n";
 }
