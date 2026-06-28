@@ -214,8 +214,8 @@ void QuizManager::startExam() {
     {
         system("cls");
         cout << "\n----------------------------------------------------\n";
-        cout << "  Question " << i + 1 << " / " << totalQuestions << endl;
-        cout << "  Subject : " << currentSubject << endl;
+        cout << "Question " << i + 1 << " / " << totalQuestions << endl;
+        cout << "Subject : " << currentSubject << endl;
         cout << "----------------------------------------------------\n";
 
         // questions[i] có kiểu dữ liệu là Question* (Lớp cha)
@@ -338,7 +338,8 @@ void QuizManager::showMenu(int currentQuestion)
         {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            system("cls");
+
+            cout << "Invalid choice! Please enter 1, 2 or 3.\n";
             continue;
         }
 
@@ -353,7 +354,7 @@ void QuizManager::showMenu(int currentQuestion)
         case 2:
             changeAnswer(currentQuestion);
             system("cls");
-            continue;
+            return;
 
         case 3:
             showAnswerSheet(currentQuestion);
@@ -362,10 +363,20 @@ void QuizManager::showMenu(int currentQuestion)
             cin.get();
 
             system("cls");
-            return;
+
+            cout << "----------------------------------------------------\n";
+            cout << "Question " << currentQuestion + 1
+                << " / " << totalQuestions << endl;
+            cout << "Subject : " << currentSubject << endl;
+            cout << "----------------------------------------------------\n";
+
+            questions[currentQuestion]->displayQuestion();
+
+            continue;
 
         default:
-            cout << "Invalid choice!\n";
+            cout << "Invalid choice! Please enter 1, 2 or 3.\n";
+            break;
         }
     }
 }
