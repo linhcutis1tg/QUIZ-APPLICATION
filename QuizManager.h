@@ -216,8 +216,9 @@ void QuizManager::startExam() {
         cout << "  Subject : " << currentSubject << endl;
         cout << "----------------------------------------------------\n";
 
+        // questions[i] có kiểu dữ liệu là Question* (Lớp cha)
         questions[i]->displayQuestion();
-
+        
         int optionCount = questions[i]->getOptionCount();
         candidateAnswers[i] = InputValidator::getValidatedAnswer(optionCount);
         showMenu(i);

@@ -70,25 +70,25 @@ void ExamResult::calculateResult(const vector<Question*>& questions, const vecto
 
 void ExamResult::displayFinalReport() const 
 {
-    std::cout << "\n";
-    std::cout << "====================================\n";
-    std::cout << "             EXAM RESULT            \n";
-    std::cout << "====================================\n";
+    cout << "\n";
+    cout << "====================================\n";
+    cout << "             EXAM RESULT            \n";
+    cout << "====================================\n";
 
-    std::cout << "Student ID      : " << candidate.getId() << std::endl;
-    std::cout << "Full Name       : " << candidate.getName() << std::endl;
-    std::cout << "Subject         : " << subject << std::endl;
-    std::cout << std::endl;
+    cout << "Student ID      : " << candidate.getId() << endl;
+    cout << "Full Name       : " << candidate.getName() << endl;
+    cout << "Subject         : " << subject << endl;
+    cout << endl;
 
-    std::cout << "Start Time      : " << startTime << std::endl;
-    std::cout << "Duration        : " << duration << " seconds" << std::endl;
-    std::cout << std::endl;
+    cout << "Start Time      : " << startTime << endl;
+    cout << "Duration        : " << duration << " seconds" << endl;
+    cout << endl;
 
-    std::cout << "Correct Answer  : "
-        << correctCount << "/" << totalQuestions << std::endl;
+    cout << "Correct Answer  : "
+        << correctCount << "/" << totalQuestions << endl;
 
-    std::cout << "Score           : "
-        << totalScore << "/10" << std::endl;
+    cout << "Score           : "
+        << totalScore << "/10" << endl;
 
-    std::cout << "====================================\n";
+    cout << "====================================\n";
 }
