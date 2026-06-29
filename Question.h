@@ -18,7 +18,7 @@ protected:
 
 public:
     // Hàm khởi tạo lưu trữ thông tin câu hỏi cơ bản
-    Question(int id, const std::string& content, const std::vector<std::string>& options, char correctAnswer);
+    Question(int id, const string& content, const vector<string>& options, char correctAnswer);
     
     // Hàm hủy ảo (Virtual Destructor) rất quan trọng để tránh rò rỉ bộ nhớ khi giải phóng lớp con qua con trỏ lớp cha
     virtual ~Question() = default;
