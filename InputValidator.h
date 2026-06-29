@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
-
+//    --------------6. Class InputValidator (Kiểm tra dữ liệu nhập)----------------
 /**
  * @brief Lớp tiện ích (Utility Class) cung cấp các phương thức tĩnh kiểm tra dữ liệu nhập từ bàn phím.
  * Không cho phép khởi tạo đối tượng (Constructor bị delete).

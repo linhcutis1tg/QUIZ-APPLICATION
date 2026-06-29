@@ -11,7 +11,7 @@
 #include "InputValidator.h"
 #include "TimeService.h"
 using namespace std;
-
+//    --------------4. Class QuizManager (Bộ não của chương trình - Điều khiển luồng)----------------
 /**
  * @brief Lớp điều phối trung tâm (Controller Class) điều khiển toàn bộ ứng dụng thi trắc nghiệm.
  * Quản lý vòng đời dữ liệu câu hỏi, giao tiếp file tệp tin, điều khiển luồng thi, cho phép xem lại và xuất kết quả.
