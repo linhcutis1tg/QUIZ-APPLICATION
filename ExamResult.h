@@ -4,7 +4,7 @@
 #include <string>
 #include "Candidate.h"
 #include "Question.h"
-
+//    --------------3. Class ExamResult (Quản lý kết quả bài thi)----------------
 /**
  * @brief Lớp chứa dữ liệu và tính toán Kết quả bài thi (Exam Report).
  * Thực hiện chấm điểm dựa trên danh sách câu hỏi gốc và đáp án của thí sinh.
