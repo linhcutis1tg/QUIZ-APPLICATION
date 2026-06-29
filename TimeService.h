@@ -2,7 +2,7 @@
 #include <string>
 #include <ctime>
 using namespace std;
-//    --------------5. Class TimeService (Thời gian)----------------
+//    --------------5. Class TimeService (Thời gian)---------------
 /**
  * @brief Lớp cung cấp dịch vụ thời gian hệ thống (Time Utility).
  * Chịu trách nhiệm lấy ngày, giờ thực tế và đo khoảng thời gian chạy.
