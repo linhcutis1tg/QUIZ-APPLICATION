@@ -3,7 +3,6 @@
 #include "QuizManager.h"
 
 using namespace std;
-
 int main() {
     // Ép Terminal hiển thị chữ có dấu (UTF-8)
     SetConsoleOutputCP(65001);  
