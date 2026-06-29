@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 using namespace std;
-
+//    --------------1. Class Question (Quản lý từng câu hỏi lẻ)----------------
 /**
  * @brief Lớp trừu tượng (Abstract Class) đại diện cho một Câu hỏi tổng quát.
  * Cung cấp khuôn mẫu cơ bản và tính đa hình cho các loại câu hỏi cụ thể.
