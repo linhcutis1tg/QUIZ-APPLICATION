@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
+//    --------------2. Class Candidate (Quản lý thông tin thí sinh)----------------
 /**
  * Lớp quản lý thông tin và kiểm tra tính hợp lệ của Thí sinh (Candidate).
  * Chịu trách nhiệm nhập xuất dữ liệu và ràng buộc định dạng Tên / Mã sinh viên.
