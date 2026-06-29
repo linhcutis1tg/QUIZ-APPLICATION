@@ -25,7 +25,7 @@ D
 4 Hình_vuông Hình_tròn Hình_tam_giác Hình_chũ_nhật
 B
 8 Phép tính nào dưới đây có kết quả bằng 0?
-4 5+5 5-5 5+0 5x5
+5 5+5 5-5 5+0 5x5 5x0+5
 B
 9 Một tuần có bao nhiêu ngày?
 4 14 9 8 7
